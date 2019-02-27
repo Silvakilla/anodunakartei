@@ -1,0 +1,10 @@
+.Text {
+    background-color: red;
+    width: 20vw;
+    margin-top: 2vh;
+}
+
+.root {
+    flex-grow: 1;
+    overflow:hidden;
+}

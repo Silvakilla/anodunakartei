@@ -1,0 +1,22 @@
+.defaultMessageCard {
+    position: relative;
+    top: 2vh;
+    margin: 0 auto;
+    width: 20vw;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.oneLineMessageCard {
+    margin: 0 auto;
+    width: 67vw;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.sameSize {
+    margin: 0 auto;
+    width: inherit;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
