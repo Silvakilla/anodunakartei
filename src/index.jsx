@@ -8,6 +8,20 @@ import Home from './container/home/home';
 import { PageNotFound } from "./container/errorPages/errorPages";
 import Login from "./container/login/login";
 import KeepRecords from "./container/keepRecords/keepRecords";
+import DetailedRecord from "./components/detailedRecord/detailedRecord";
+
+/*
+Context statt props verwenden
+klappt bisher nicht
+benötigt provider & consumer
+ */
+const KarteiContext = React.createContext({
+    global: {
+        user: undefined,
+        jwt: undefined,
+        permission: 'user'
+    }
+});
 
 render(
     <Fragment>
@@ -18,6 +32,7 @@ render(
                 <Route path={'/home'} component={Home}/>
                 <Route path={'/login'} component={Login}/>
                 <Route path={'/records'} component={KeepRecords}/>
+                <Route path={'/record'} component={DetailedRecord}/>
                 <Route component={PageNotFound}/>
             </Switch>
         </BrowserRouter>

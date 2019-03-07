@@ -13,7 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 const styles = {
     root: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     grow: {
         flexGrow: 1,
@@ -105,8 +105,3 @@ TopMenu.propTypes = {
 };
 
 export default withStyles(styles)(TopMenu);
-
-/*
-<Button variant={'contained'} color={'primary'} href={'/'}><Typography variant={'button'} className={'whiteText'}>Home</Typography></Button>
-                        <Button variant={'contained'} color={'primary'} href={'/toolOverview'}><Typography variant={'button'} className={'whiteText'}>Toolübersicht</Typography></Button>
- */

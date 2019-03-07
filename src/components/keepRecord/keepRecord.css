@@ -1,0 +1,9 @@
+.recordItem {
+    width: 20vw;
+    margin-top: 2vh;
+}
+
+.MuiGrid-spacing-xs-16-147 {
+    width: 100% !important;
+    margin: -8px;
+}
