@@ -1,5 +1,6 @@
 import './detailedRecord.css'
 import cms from '../../../config/cms';
+import iconNames from '../../../config/materialIcons';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -7,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -22,31 +22,7 @@ import Icon from '@material-ui/core/Icon';
 
 export default class DetailedRecord extends Component {
     state = {
-        open: this.props.open,
-        detailedRecord: {
-            id: 0,
-            firstName: 'CharFirstName1',
-            lastName: 'CharLastName1',
-            age: 20,
-            entries: [
-                {
-                    id: 0,
-                    date: '29.11.2018',
-                    healer: 'Dr. Angstquell',
-                    injury: 'Schwere Verbrennungen durch Fel-Feuer',
-                    cause: 'Fel-Feuer',
-                    treatment: 'Heilung durch Lichtmagie',
-                    fitForService: 'Nein'
-                }
-            ],
-            phobias: [
-                {
-                    id: 0,
-                    name: 'Besonderheit 1',
-                    description: 'Patient will nicht angefasst werden'
-                }
-            ]
-        }
+        open: this.props.open
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -59,31 +35,37 @@ export default class DetailedRecord extends Component {
         this.setState({open:false})
     };
 
-    render() {
-        const {open,detailedRecord} = this.state;
+    // axios call zum saven vom jetztigen Record
+    handleSave = () => {
+        this.setState({open:false})
+    }
 
+    render() {
+        const {open} = this.state;
+        const {detailedRecord} = this.props;
+        
         return (
             <Dialog open={open} onClose={this.handleClickClose} aria-labelledby="form-dialog-title" maxWidth={'lg'} fullWidth={true} scroll={'paper'}>
-                <DialogTitle id="form-dialog-title">Krankenakte - {detailedRecord.firstName + ' ' + detailedRecord.lastName}</DialogTitle>
+                <DialogTitle id="form-dialog-title">{cms.injuryRecord} - {detailedRecord.firstName + ' ' + detailedRecord.lastName}</DialogTitle>
                 <DialogContent>
                     <Typography variant={'h5'}>
-                        Persönliche Daten
+                        {cms.personalData}
                     </Typography>
-                    <TextField margin={'dense'} id={'firstName'} label={'Vorname'} type={'text'} value={detailedRecord.firstName}/>
-                    <TextField margin={'dense'} id={'lastName'} label={'Nachname'} type={'text'} value={detailedRecord.lastName}/>
-                    <TextField margin={'dense'} id={'age'} label={'Alter'} type={'text'} value={detailedRecord.age}/>
+                    <TextField margin={'dense'} id={'firstName'} label={cms.firstName} type={'text'} value={detailedRecord.firstName}/>
+                    <TextField margin={'dense'} id={'lastName'} label={cms.lastName} type={'text'} value={detailedRecord.lastName}/>
+                    <TextField margin={'dense'} id={'age'} label={cms.age} type={'text'} value={detailedRecord.age}/>
                     <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
+                        <ExpansionPanelSummary expandIcon={<Icon>{iconNames.expand_more}</Icon>}>
                             <Typography variant={'h5'}>
-                                Besonderheiten
+                                {cms.phobias}
                             </Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell>Beschreibung</TableCell>
+                                        <TableCell>{cms.name}</TableCell>
+                                        <TableCell>{cms.description}</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -98,21 +80,21 @@ export default class DetailedRecord extends Component {
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                     <ExpansionPanel defaultExpanded>
-                        <ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
+                        <ExpansionPanelSummary expandIcon={<Icon>{iconNames.expand_more}</Icon>}>
                             <Typography variant={'h5'}>
-                                Verletzungen
+                                {cms.injuries}
                             </Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Datum</TableCell>
-                                        <TableCell>Heiler</TableCell>
-                                        <TableCell>Verletzung</TableCell>
-                                        <TableCell>Ursache</TableCell>
-                                        <TableCell>Behandlung</TableCell>
-                                        <TableCell>Diensttauglich</TableCell>
+                                        <TableCell>{cms.date}</TableCell>
+                                        <TableCell>{cms.healer}</TableCell>
+                                        <TableCell>{cms.injury}</TableCell>
+                                        <TableCell>{cms.cause}</TableCell>
+                                        <TableCell>{cms.treatment}</TableCell>
+                                        <TableCell>{cms.fitForService}</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -133,10 +115,10 @@ export default class DetailedRecord extends Component {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleClickClose} color={'primary'}>
-                        Abbrechen
+                        {cms.cancel}
                     </Button>
-                    <Button onClick={this.handleClickClose} color={'primary'}>
-                        Speichern
+                    <Button onClick={this.handleSave} color={'primary'}>
+                        {cms.save}
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -145,5 +127,6 @@ export default class DetailedRecord extends Component {
 }
 
 DetailedRecord.propTypes = {
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
+    detailedRecord: PropTypes.object.isRequired
 };

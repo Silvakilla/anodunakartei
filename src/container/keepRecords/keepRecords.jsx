@@ -5,28 +5,7 @@ import TopMenu from "../../components/topMenu/topMenu";
 import Grid from '@material-ui/core/Grid';
 import KeepRecord from "../../components/keepRecord/keepRecord";
 import _ from 'lodash';
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DetailedRecord from "../../components/detailedRecord/detailedRecord";
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
-
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-
-import Icon from '@material-ui/core/Icon';
+import axios from 'axios';
 
 export default class KeepRecords extends Component {
     state = {
@@ -52,50 +31,146 @@ export default class KeepRecords extends Component {
                 shortDescription: 'Eventuell ein kurzer Text'
             }
         ],
-        open: false
+        detailedRecords: [
+            {
+                id: 0,
+                firstName: 'CharFirstName1',
+                lastName: 'CharLastName1',
+                age: 20,
+                entries: [
+                    {
+                        id: 0,
+                        date: '29.11.2018',
+                        healer: 'Dr. Angstquell',
+                        injury: 'Schwere Verbrennungen durch Fel-Feuer',
+                        cause: 'Fel-Feuer',
+                        treatment: 'Heilung durch Lichtmagie',
+                        fitForService: 'Nein'
+                    }
+                ],
+                phobias: [
+                    {
+                        id: 0,
+                        name: 'Besonderheit 1',
+                        description: 'Patient will nicht angefasst werden'
+                    }
+                ]
+            },
+            {
+                id: 1,
+                firstName: 'CharFirstName2',
+                lastName: 'CharLastName2',
+                age: 20,
+                entries: [
+                    {
+                        id: 0,
+                        date: '29.11.2018',
+                        healer: 'Dr. Angstquell',
+                        injury: 'Schwere Verbrennungen durch Fel-Feuer',
+                        cause: 'Fel-Feuer',
+                        treatment: 'Heilung durch Lichtmagie',
+                        fitForService: 'Nein'
+                    }
+                ],
+                phobias: [
+                    {
+                        id: 0,
+                        name: 'Besonderheit 1',
+                        description: 'Patient will nicht angefasst werden'
+                    }
+                ]
+            },
+            {
+                id: 2,
+                firstName: 'CharFirstName3',
+                lastName: 'CharLastName3',
+                age: 20,
+                entries: [
+                    {
+                        id: 0,
+                        date: '29.11.2018',
+                        healer: 'Dr. Angstquell',
+                        injury: 'Schwere Verbrennungen durch Fel-Feuer',
+                        cause: 'Fel-Feuer',
+                        treatment: 'Heilung durch Lichtmagie',
+                        fitForService: 'Nein'
+                    }
+                ],
+                phobias: [
+                    {
+                        id: 0,
+                        name: 'Besonderheit 1',
+                        description: 'Patient will nicht angefasst werden'
+                    }
+                ]
+            },
+            {
+                id: 3,
+                firstName: 'CharFirstName4',
+                lastName: 'CharLastName4',
+                age: 20,
+                entries: [
+                    {
+                        id: 0,
+                        date: '29.11.2018',
+                        healer: 'Dr. Angstquell',
+                        injury: 'Schwere Verbrennungen durch Fel-Feuer',
+                        cause: 'Fel-Feuer',
+                        treatment: 'Heilung durch Lichtmagie',
+                        fitForService: 'Nein'
+                    }
+                ],
+                phobias: [
+                    {
+                        id: 0,
+                        name: 'Besonderheit 1',
+                        description: 'Patient will nicht angefasst werden'
+                    }
+                ]
+            }
+        ]
     };
 
     deleteRecord = (id) => {
         delete this.state.records[id];
-        console.log(this.state.records);
         this.setState({open:false});
     };
 
-    /*
-    Dialog wird geöffnet, ID wird übergeben und alle infos aus der DB für die ID gezogen
-     */
-    handleClickOpen = () => {
-        this.setState({open:true});
-    };
+    getRecord = (id) => {
+        // axios call für einen Record
+        axios.get('/record/{id}')
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
 
     render () {
-        const {records,open} = this.state;
+        const {records,detailedRecords} = this.state;
 
         return (
             <div>
-                <TopMenu title={'Krankenakten'}/>
+                <TopMenu title={cms.injuryRecords}/>
                 <Grid container className={'cardRoot'}>
                     <Grid item xs={12}>
                         <Grid container spacing={16} direction={'row'} justify={'center'} alignItems={'center'}>
-                            {records.map((mRecord,key) => (
+                            {records.map((mRecord,key) => ( //records evt begrenzen, dass nicht zuviele aufeinmal geladen werden
                                 <Grid item key={key}>
-                                    <KeepRecord id={mRecord.id} characterName={mRecord.characterName} shortDescription={mRecord.shortDescription} openRecord={this.handleClickOpen} deleteRecord={() => {this.deleteRecord(mRecord.id)}}/>
+                                    <KeepRecord 
+                                        id={mRecord.id}
+                                        characterName={mRecord.characterName}
+                                        shortDescription={mRecord.shortDescription}
+                                        deleteRecord={() => {this.deleteRecord(mRecord.id)}}
+                                        detailedRecord={() => {this.getRecord(mRecord.id)}} // durch einen request ersetzen, der einen record holt anhand der ID
+                                    />
                                 </Grid>
                             ))}
                         </Grid>
                     </Grid>
                 </Grid>
-                <DetailedRecord open={open}/>
             </div>
         );
     }
 }
-
-
-/*
-{records.map((mRecord,key) => (
-                                <Grid item key={key}>
-                                    <KeepRecord id={mRecord.id} characterName={mRecord.characterName} shortDescription={mRecord.shortDescription} openRecord={this.handleClickOpen} deleteRecord={() => {this.deleteRecord(mRecord.id)}}/>
-                                </Grid>
-                            ))
- */

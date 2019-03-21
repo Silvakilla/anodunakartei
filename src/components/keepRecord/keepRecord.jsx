@@ -8,27 +8,43 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import DetailedRecord from "../../components/detailedRecord/detailedRecord";
+
 export default class KeepRecord extends Component {
+    state = {
+        open: false,
+    }
+
+    handleClickOpen = () => {
+        this.setState({open:true});
+    };
+
     render(){
+        const {open} = this.state;
+        const {characterName,shortDescription,deleteRecord,id,detailedRecord} = this.props;
+
         return (
-            <Card className={'recordItem'}>
-                <CardContent>
-                    <Typography gutterBottom variant={'h5'} component={'h2'}>
-                        {this.props.characterName}
-                    </Typography>
-                    <Typography component={'p'}>
-                        {this.props.shortDescription}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button size={'small'} color={'primary'} onClick={this.props.openRecord}>
-                        Öffnen
-                    </Button>
-                    <Button size={'small'} color={'primary'} onClick={() => {this.props.deleteRecord(this.props.id)}}>
-                        Löschen
-                    </Button>
-                </CardActions>
-            </Card>
+            <div>
+                <Card className={'recordItem'}>
+                    <CardContent>
+                        <Typography gutterBottom variant={'h5'} component={'h2'}>
+                            {characterName}
+                        </Typography>
+                        <Typography component={'p'}>
+                            {shortDescription}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size={'small'} color={'primary'} onClick={this.handleClickOpen}>
+                            {cms.open}
+                        </Button>
+                        <Button size={'small'} color={'primary'} onClick={() => {deleteRecord(id)}}>
+                            {cms.delete}
+                        </Button>
+                    </CardActions>
+                </Card>
+                <DetailedRecord open={open} detailedRecord={detailedRecord}/>
+            </div>
         );
     }
 }
@@ -37,6 +53,6 @@ KeepRecord.propTypes = {
     id: PropTypes.number.isRequired,
     characterName: PropTypes.string.isRequired,
     shortDescription: PropTypes.string.isRequired,
-    openRecord: PropTypes.func.isRequired,
-    deleteRecord: PropTypes.func.isRequired
+    deleteRecord: PropTypes.func.isRequired,
+    detailedRecord: PropTypes.object.isRequired
 };

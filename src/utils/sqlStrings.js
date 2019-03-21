@@ -6,7 +6,7 @@ let user = {
 
 };
 
-module.exports = {
+export default {
     data,
     user
 };

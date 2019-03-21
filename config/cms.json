@@ -4,6 +4,7 @@
   "phobias": "Besonderheiten",
   "injuries": "Verletzungen",
   "injuryRecord": "Krankenakte",
+  "injuryRecords": "Krankenakten",
   "date": "Datum",
   "healer": "Heiler",
   "injury": "Verletzung",
@@ -14,5 +15,11 @@
   "description": "Beschreibung",
   "cancel": "Abbrechen",
   "save": "Speichern",
-  "edit": "Editieren"
+  "edit": "Editieren",
+  "personalData": "Persönliche Daten",
+  "firstName": "Vorname",
+  "lastName": "Nachname",
+  "age": "Alter",
+  "open": "Öffnen",
+  "delete": "Löschen"
 }

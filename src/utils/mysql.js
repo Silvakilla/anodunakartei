@@ -10,50 +10,46 @@ let pool = mysql.createPool({
     database: config.database
 });
 
-let connection = () => {
-    return pool.getConnection()
-        .then((connection) => {
-            return connection;
-        })
-        .catch((err) => {
-            logger.error(err);
-            throw err;
-        });
+let connection = async () => {
+    try {
+        const connection = await pool.getConnection();
+        return connection;
+    }
+    catch (err) {
+        logger.error(err);
+        throw err;
+    }
 };
 
-let query = (sql) => {
-    return connection()
-        .then((conn) => {
-            let result = conn.query(sql);
-            conn.release();
-            return result;
-        })
-        .then((rows) => {
-            return rows;
-        })
-        .catch((err) => {
-            logger.error(err);
-            return err;
-        });
+let query = async (sql) => {
+    try {
+        const conn = await connection();
+        let result_1 = conn.query(sql);
+        conn.release();
+        const rows = result_1;
+        return rows;
+    }
+    catch (err) {
+        logger.error(err);
+        return err;
+    }
 };
 
-let preparedQuery = (sql,statements) => {
-    return connection()
-        .then((conn) => {
-            let result = conn.query(sql,statements);
-            conn.release();
-            return result;
-        })
-        .then((rows) => {
-            return rows
-        })
-        .catch((err) => {
-            logger.error(err);
-            return err;
-        });
+let preparedQuery = async (sql,statements) => {
+    try {
+        const conn = await connection();
+        let result_1 = conn.query(sql, statements);
+        conn.release();
+        const rows = result_1;
+        return rows;
+    }
+    catch (err) {
+        logger.error(err);
+        return err;
+    }
 };
 
-module.exports = {
+export default {
     query,
     preparedQuery
 };

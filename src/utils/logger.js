@@ -6,7 +6,7 @@ let warning = (message) => { log(chalk.keyword('orange')('[WARN] ' + message)); 
 let debug = (message) => { log(chalk.keyword('blue')('[DEBUG] ' + message)); };
 let info = (message) => { log(chalk.keyword('green')('[INFO] ' + message)); };
 
-module.exports = {
+export default {
     debug,
     info,
     warning,
