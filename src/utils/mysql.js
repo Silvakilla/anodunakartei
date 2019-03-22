@@ -21,7 +21,7 @@ let connection = async () => {
     }
 };
 
-let query = async (sql) => {
+let Query = async (sql) => {
     try {
         const conn = await connection();
         let result_1 = conn.query(sql);
@@ -35,7 +35,7 @@ let query = async (sql) => {
     }
 };
 
-let preparedQuery = async (sql,statements) => {
+let PreparedQuery = async (sql,statements) => {
     try {
         const conn = await connection();
         let result_1 = conn.query(sql, statements);
@@ -50,6 +50,6 @@ let preparedQuery = async (sql,statements) => {
 };
 
 export default {
-    query,
-    preparedQuery
+    Query,
+    PreparedQuery
 };

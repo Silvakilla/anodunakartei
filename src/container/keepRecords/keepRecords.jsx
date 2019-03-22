@@ -137,7 +137,6 @@ export default class KeepRecords extends Component {
     };
 
     getRecord = (id) => {
-        // axios call für einen Record
         axios.get('/record/{id}')
         .then((response) => {
             console.log(response);

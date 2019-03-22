@@ -12,6 +12,9 @@ app.use(bodyParser.json());
 // let authCheckMiddleware = require('./server/middleware/authCheck');
 // app.use('/api',authCheckMiddleware);
 
+let apiRoutes = require('./src/routes/api');
+app.use('/api',apiRoutes);
+
 app.all('*',(req,res) => {
     res.sendFile(path.join(__dirname,'./build/static/index.html'));
 });

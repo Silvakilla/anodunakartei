@@ -1,0 +1,67 @@
+-- Kartei Database
+-- v0.0.1
+
+CREATE DATABASE IF NOT EXISTS kartei;
+USE kartei;
+
+SET foreign_key_checks = 0;
+
+CREATE TABLE IF NOT EXISTS DetailedRecord (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    firstName VARCHAR(255) DEFAULT NULL ,
+    lastName VARCHAR(255) DEFAULT NULL ,
+    age BIGINT(20) DEFAULT NULL ,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS ShortRecord (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    firstName VARCHAR(255) DEFAULT NULL ,
+    lastName VARCHAR(255) DEFAULT NULL ,
+    description VARCHAR(5000) DEFAULT NULL ,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS RecordEntry (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    date VARCHAR(255) DEFAULT NULL ,
+    healer VARCHAR(255) DEFAULT NULL ,
+    injury VARCHAR(5000) DEFAULT NULL ,
+    cause VARCHAR(5000) DEFAULT NULL ,
+    treatment VARCHAR(5000) DEFAULT NULL ,
+    fitForService VARCHAR(255) DEFAULT NULL ,
+    detailedRecord BIGINT(20) NOT NULL ,
+    PRIMARY KEY (id),
+    KEY FK_DETAILED_RECORD2 (detailedRecord),
+    CONSTRAINT FK_DETAILED_RECORD2 FOREIGN KEY (detailedRecord) REFERENCES DetailedRecord (id)
+);
+
+CREATE TABLE IF NOT EXISTS Phobia (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) DEFAULT NULL ,
+    description VARCHAR(5000) DEFAULT NULL ,
+    detailedRecord BIGINT(20) NOT NULL ,
+    PRIMARY KEY (id),
+    KEY FK_DETAILED_RECORD3 (detailedRecord),
+    CONSTRAINT FK_DETAILED_RECORD3 FOREIGN KEY (detailedRecord) REFERENCES DetailedRecord (id)
+);
+
+CREATE TABLE IF NOT EXISTS User (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) DEFAULT NULL ,
+    email VARCHAR(255) DEFAULT NULL ,
+    characterName VARCHAR(255) DEFAULT NULL ,
+    permission BIGINT(20) NOT NULL ,
+    PRIMARY KEY (id),
+    KEY FK_PERMISSION (permission),
+    CONSTRAINT FK_PERMISSION FOREIGN KEY (permission) REFERENCES Permissions (id)
+);
+
+CREATE TABLE IF NOT EXISTS Permissions (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) DEFAULT NULL ,
+    description VARCHAR(255) DEFAULT NULL ,
+    PRIMARY KEY (id)
+);
+
+SET foreign_key_checks = 1;
