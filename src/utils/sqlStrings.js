@@ -6,14 +6,13 @@ let detailedRecord = {
 let shortRecord = {
     getAllShortRecords: 'select * from ShortRecord',
     getShortRecordById: 'select * from ShortRecord where id = ?',
-    getShortRecordForId: 'select * from ShortRecord where detailedRecord = ?'
 }
 
 let phobia = {
     getAllPhobias: 'select * from Phobia',
     getAllPhobiasForId: 'select * from Phobia where detailedRecord = ?',
     getAllPhobiaById: 'select * from Phobia where id = ?',
-    getAllPhobiaByName: 'select * from Phobia name = ?'
+    getAllPhobiaByName: 'select * from Phobia where name = ?'
 }
 
 let recordEntry = {

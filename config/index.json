@@ -1,7 +1,7 @@
 {
   "dbURL": "localhost",
   "dbUser": "root",
-  "dbPw": "hV+AKC,Dcn8:arv!",
+  "dbPassword": "hV+AKC,Dcn8:arv!",
   "testDbPw": "root",
   "database": "kartei",
   "connectionLimit": 10,
