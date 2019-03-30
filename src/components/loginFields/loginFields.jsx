@@ -4,7 +4,11 @@ import {MessageCardWithActions} from "../messageCard/messageCard";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from '@material-ui/core/TextField';
+import md5 from 'md5';
 
+import { GenerateSessionToken } from '../../utils/tokenGenerator';
+import CheckToken from '../../utils/tokenChecker';
+import config from '../../../config/config';
 
 export default class LoginFields extends Component {
     state = {
@@ -23,7 +27,19 @@ export default class LoginFields extends Component {
     };
 
     handleLogin = () => {
-        localStorage.setItem('auth','true');
+        let payload = {
+            username: this.state.user.username,
+            password: md5(this.state.user.password)
+        };
+
+        GenerateSessionToken(payload, config.jwtData.jwtSecret);
+
+        if(CheckToken(localStorage.getItem('session'),config.jwtData.jwtSecret)) {
+            localStorage.setItem('auth','true');
+        }
+        else {
+            // do something do show user, error did happen
+        }
     };
 
     render() {
@@ -47,7 +63,7 @@ export default class LoginFields extends Component {
                 />
                 <TextField
                     name={'password'}
-                    label={'Password'}
+                    label={'Passwort'}
                     value={this.state.user.password}
                     onChange={this.handleChange}
                     margin={'normal'}

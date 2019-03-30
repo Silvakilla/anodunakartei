@@ -38,7 +38,7 @@ export default class DetailedRecord extends Component {
     // axios call zum saven vom jetztigen Record
     handleSave = () => {
         this.setState({open:false})
-    }
+    };
 
     render() {
         const {open} = this.state;

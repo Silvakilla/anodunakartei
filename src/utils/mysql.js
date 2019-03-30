@@ -6,14 +6,13 @@ let pool = mysql.createPool({
     connectionLimit: config.connectionLimit,
     host: config.dbURL,
     user: config.dbUser,
-    password: config.dbPassword,
+    password: config.testDbPassword,
     database: config.database
 });
 
 let connection = async () => {
     try {
-        const connection = await pool.getConnection();
-        return connection;
+        return await pool.getConnection();
     }
     catch (err) {
         logger.error(err);
@@ -24,10 +23,9 @@ let connection = async () => {
 let Query = async (sql) => {
     try {
         const conn = await connection();
-        let result_1 = conn.query(sql);
+        let result = conn.query(sql);
         conn.release();
-        const rows = result_1;
-        return rows;
+        return result;
     }
     catch (err) {
         logger.error(err);
@@ -38,10 +36,9 @@ let Query = async (sql) => {
 let PreparedQuery = async (sql,statements) => {
     try {
         const conn = await connection();
-        let result_1 = conn.query(sql, statements);
+        let result = conn.query(sql, statements);
         conn.release();
-        const rows = result_1;
-        return rows;
+        return result;
     }
     catch (err) {
         logger.error(err);

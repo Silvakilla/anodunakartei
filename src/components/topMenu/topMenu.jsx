@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import SideMenu from "../sideMenu/sideMenu";
 
 const styles = {
     root: {
@@ -27,12 +28,14 @@ const styles = {
 class TopMenu extends Component {
     state = {
         auth: localStorage.getItem('auth'),
-        anchorEl: null
+        anchorEl: null,
+        sideMenuOpen : false
     };
 
     handleLogout = () => {
         this.setState({auth: 'false'});
         localStorage.setItem('auth','false');
+        localStorage.removeItem('session');
         this.setState({ anchorEl: null});
     };
 
@@ -44,22 +47,26 @@ class TopMenu extends Component {
         this.setState({ anchorEl: null});
     };
 
+    openSideMenu = () => {
+          this.setState({sideMenuOpen: true});
+    };
+
     render() {
         const { classes } = this.props;
-        const { auth, anchorEl } = this.state;
+        const { auth, anchorEl, sideMenuOpen } = this.state;
         const open = Boolean(anchorEl);
 
         return (
             <div className={'root'}>
                 <AppBar position={'static'}>
                     <Toolbar color={'secondary'}>
-                        <IconButton className={classes.menuButton} color={'inherit'} aria-label='Menu'>
+                        <IconButton className={classes.menuButton} color={'inherit'} aria-label='Menu' onClick={this.openSideMenu}>
                             <Icon>menu</Icon>
                         </IconButton>
                         <Typography variant={'h6'} color={'inherit'} className={classes.grow}>
                             {this.props.title}
                         </Typography>
-                        {auth !== 'false' ? (
+                        {auth !== 'false' && localStorage.getItem('session') !== undefined ? (
                             <div>
                                 <IconButton
                                     aria-owns={open ? 'menu-appbar' : undefined}
@@ -95,6 +102,7 @@ class TopMenu extends Component {
                         </div>}
                     </Toolbar>
                 </AppBar>
+                <SideMenu open={sideMenuOpen}/>
             </div>
         );
     }

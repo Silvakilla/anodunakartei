@@ -4,10 +4,6 @@ import TopMenu from "../../components/topMenu/topMenu";
 import LoginFields from "../../components/loginFields/loginFields";
 
 export default class Login extends Component {
-    state = {
-
-    };
-
     render() {
         return (
             <div>
