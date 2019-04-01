@@ -1,13 +1,13 @@
 import mysql from 'promise-mysql';
-import config from '../../config/index';
+import config from '../../config/config';
 import logger from './logger';
 
 let pool = mysql.createPool({
-    connectionLimit: config.connectionLimit,
-    host: config.dbURL,
-    user: config.dbUser,
-    password: config.testDbPassword,
-    database: config.database
+    connectionLimit: config.dbData.connectionLimit,
+    host: config.dbData.dbURL,
+    user: config.dbData.dbUser,
+    password: config.dbData.dbPassword,
+    database: config.dbData.database
 });
 
 let connection = async () => {

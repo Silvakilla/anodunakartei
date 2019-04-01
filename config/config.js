@@ -12,7 +12,7 @@ let jwtData = {
 };
 
 
-module.exports = {
+export default {
     dbData,
     jwtData
 };
