@@ -21,6 +21,7 @@ insert into RecordEntry values (1,'29.11.2018','Dr. Angstquell','Schwere Verbren
 insert into RecordEntry values (2,'31.12.2018','Dr. Angstquell','Verbrennungen durch Fel-Feuer','Fel-Feuer','Heilung durch Lichtmagie','Nein',2);
 insert into RecordEntry values (3,'11.11.2018','Dr. Angstquell','Brennendes Geroell durch Fel-Feuer','Fel-Feuer','Heilung durch Lichtmagie','Nein',3);
 insert into RecordEntry values (4,'01.04.2018','Dr. Angstquell','Verbrennungen durch Feuer','Magie','Heilung durch Lichtmagie','Nein',4);
+insert into RecordEntry values (5,'29.11.2018','Dr. Angstquell','Schwere Verbrennungen durch Fel-Feuer','Fel-Feuer','Heilung durch Lichtmagie','Nein',1);
 
 select * from RecordEntry;
 

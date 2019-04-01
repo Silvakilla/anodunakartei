@@ -41,19 +41,19 @@ export default class DetailedRecord extends Component {
     };
 
     render() {
-        const {open} = this.state;
-        const {detailedRecord} = this.props;
+        const {open,} = this.state;
+        const {charData,entries,phobias} = this.props;
         
         return (
             <Dialog open={open} onClose={this.handleClickClose} aria-labelledby="form-dialog-title" maxWidth={'lg'} fullWidth={true} scroll={'paper'}>
-                <DialogTitle id="form-dialog-title">{cms.injuryRecord} - {detailedRecord.firstName + ' ' + detailedRecord.lastName}</DialogTitle>
+                <DialogTitle id="form-dialog-title">{cms.injuryRecord} - {charData.firstName + ' ' + charData.lastName}</DialogTitle>
                 <DialogContent>
                     <Typography variant={'h5'}>
                         {cms.personalData}
                     </Typography>
-                    <TextField margin={'dense'} id={'firstName'} label={cms.firstName} type={'text'} value={detailedRecord.firstName}/>
-                    <TextField margin={'dense'} id={'lastName'} label={cms.lastName} type={'text'} value={detailedRecord.lastName}/>
-                    <TextField margin={'dense'} id={'age'} label={cms.age} type={'text'} value={detailedRecord.age}/>
+                    <TextField margin={'dense'} id={'firstName'} label={cms.firstName} type={'text'} value={charData.firstName || ''}/>
+                    <TextField margin={'dense'} id={'lastName'} label={cms.lastName} type={'text'} value={charData.lastName || ''}/>
+                    <TextField margin={'dense'} id={'age'} label={cms.age} type={'text'} value={charData.age || ''}/>
                     <ExpansionPanel>
                         <ExpansionPanelSummary expandIcon={<Icon>{iconNames.expand_more}</Icon>}>
                             <Typography variant={'h5'}>
@@ -69,7 +69,7 @@ export default class DetailedRecord extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {detailedRecord.phobias.map((phobia,key) => (
+                                    {phobias.map((phobia,key) => (
                                         <TableRow key={key}>
                                             <TableCell>{phobia.name}</TableCell>
                                             <TableCell>{phobia.description}</TableCell>
@@ -98,7 +98,7 @@ export default class DetailedRecord extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {detailedRecord.entries.map((entry,key) => (
+                                    {entries.map((entry,key) => (
                                         <TableRow key={key}>
                                             <TableCell>{entry.date}</TableCell>
                                             <TableCell>{entry.healer}</TableCell>
@@ -128,5 +128,7 @@ export default class DetailedRecord extends Component {
 
 DetailedRecord.propTypes = {
     open: PropTypes.bool.isRequired,
-    detailedRecord: PropTypes.object.isRequired
+    charData: PropTypes.any,
+    entries: PropTypes.any,
+    phobias: PropTypes.any
 };

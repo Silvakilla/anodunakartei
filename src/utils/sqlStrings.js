@@ -1,6 +1,7 @@
 let detailedRecord = {
     getAllDetailedRecords: 'select * from DetailedRecord',
-    getDetailedRecordById: 'select * from DetailedRecord where id = ?'
+    getDetailedRecordById: 'select * from DetailedRecord where id = ?',
+    getFullDetailedRecord: 'select * from DetailedRecord d join Phobia p on (p.detailedRecord = d.id) join RecordEntry r on (r.detailedRecord = d.id) where d.id = ?'
 };
 
 let shortRecord = {

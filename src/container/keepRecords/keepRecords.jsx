@@ -9,31 +9,19 @@ import axios from 'axios';
 
 export default class KeepRecords extends Component {
     state = {
-        records: [
-            {
-                id: 0,
-                characterName: 'Charname1',
-                shortDescription: 'Eventuell ein kurzer Text'
-            },
-            {
-                id: 1,
-                characterName: 'Charname2',
-                shortDescription: 'Eventuell ein kurzer Text'
-            },
-            {
-                id: 2,
-                characterName: 'Charname3',
-                shortDescription: 'Eventuell ein kurzer Text'
-            },
-            {
-                id: 3,
-                characterName: 'Charname4',
-                shortDescription: 'Eventuell ein kurzer Text'
-            }
-        ],
+        dRecord : 
+        {
+            id: 0,
+            firstName: '',
+            lastName: '',
+            age: 0,
+            entries: [],
+            phobias: []
+        },
+        records: [],
         detailedRecords: [
             {
-                id: 0,
+                id: 1,
                 firstName: 'CharFirstName1',
                 lastName: 'CharLastName1',
                 age: 20,
@@ -57,7 +45,7 @@ export default class KeepRecords extends Component {
                 ]
             },
             {
-                id: 1,
+                id: 2,
                 firstName: 'CharFirstName2',
                 lastName: 'CharLastName2',
                 age: 20,
@@ -81,7 +69,7 @@ export default class KeepRecords extends Component {
                 ]
             },
             {
-                id: 2,
+                id: 3,
                 firstName: 'CharFirstName3',
                 lastName: 'CharLastName3',
                 age: 20,
@@ -105,7 +93,7 @@ export default class KeepRecords extends Component {
                 ]
             },
             {
-                id: 3,
+                id: 4,
                 firstName: 'CharFirstName4',
                 lastName: 'CharLastName4',
                 age: 20,
@@ -131,23 +119,23 @@ export default class KeepRecords extends Component {
         ]
     };
 
-    deleteRecord = (id) => {
-        delete this.state.records[id];
-        this.setState({open:false});
-    };
-
-    getRecord = (id) => {
-        axios.get('/record/{id}')
+    componentDidMount() {
+        axios.get('/api/getShortRecords')
         .then((response) => {
-            console.log(response);
+            this.setState({records: response.data.rows});
         })
         .catch((error) => {
             console.log(error);
         });
     }
 
+    deleteRecord = (id) => {
+        delete this.state.records[id];
+        this.setState({open:false});
+    };
+
     render () {
-        const {records,detailedRecords} = this.state;
+        const {records} = this.state;
 
         return (
             <div>
@@ -159,10 +147,9 @@ export default class KeepRecords extends Component {
                                 <Grid item key={key}>
                                     <KeepRecord 
                                         id={mRecord.id}
-                                        characterName={mRecord.characterName}
-                                        shortDescription={mRecord.shortDescription}
+                                        characterName={mRecord.firstName + " " + mRecord.lastName}
+                                        shortDescription={mRecord.description}
                                         deleteRecord={() => {this.deleteRecord(mRecord.id)}}
-                                        detailedRecord={() => {this.getRecord(mRecord.id)}} // durch einen request ersetzen, der einen record holt anhand der ID
                                     />
                                 </Grid>
                             ))}
