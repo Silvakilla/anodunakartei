@@ -9,6 +9,7 @@ import md5 from 'md5';
 import { GenerateSessionToken } from '../../utils/tokenGenerator';
 import CheckToken from '../../utils/tokenChecker';
 import config from '../../../config/config';
+import Auth from '../../components/authController/authController';
 
 export default class LoginFields extends Component {
     state = {

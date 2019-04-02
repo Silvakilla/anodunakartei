@@ -9,6 +9,7 @@ import { PageNotFound } from "./container/errorPages/errorPages";
 import Login from "./container/login/login";
 import KeepRecords from "./container/keepRecords/keepRecords";
 import Register from "./container/register/register";
+import AuthProvider from './components/authController/authController';
 
 /*
 Context statt props verwenden
@@ -19,27 +20,22 @@ solange localstorage used:
     1x JWT-Token für API-Kommunikation
 JWT im Context speichern
  */
-const KarteiContext = React.createContext({
-    global: {
-        user: undefined,
-        jwt: undefined,
-        permission: 'user'
-    }
-});
 
 render(
-    <Fragment>
-        <CssBaseline/>
-        <BrowserRouter>
-            <Switch>
-                <Route exact path={'/'} component={Home}/>
-                <Route path={'/home'} component={Home}/>
-                <Route path={'/login'} component={Login}/>
-                <Route path={'/register'} component={Register}/>
-                <Route path={'/records'} component={KeepRecords}/>
-                <Route component={PageNotFound}/>
-            </Switch>
-        </BrowserRouter>
-    </Fragment>,
+    <AuthProvider>
+        <Fragment>
+            <CssBaseline/>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path={'/'} component={Home}/>
+                    <Route path={'/home'} component={Home}/>
+                    <Route path={'/login'} component={Login}/>
+                    <Route path={'/register'} component={Register}/>
+                    <Route path={'/records'} component={KeepRecords}/>
+                    <Route component={PageNotFound}/>
+                </Switch>
+            </BrowserRouter>
+        </Fragment>
+    </AuthProvider>,
     document.getElementById('app')
 );
