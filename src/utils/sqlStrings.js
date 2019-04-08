@@ -26,6 +26,7 @@ let user = {
     getAllUser: 'select * from User',
     getUserById: 'select * from User where id = ?',
     getUserByEmail: 'select * from User where email = ?',
+    getUserByUsername: 'select * from User where username = ?'
 };
 
 let permission = {

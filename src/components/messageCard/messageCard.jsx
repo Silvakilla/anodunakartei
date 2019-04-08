@@ -60,6 +60,19 @@ class MessageCardWithActions extends Component {
     }
 }
 
+class CustomCard extends Component {
+    render() {
+        return (
+            <div>
+                <Card className={this.props.style}>
+                    <CardHeader title={this.props.title} />
+                    {this.props.children}
+                </Card>
+            </div>
+        );
+    }
+}
+
 MessageCardWithActions.propTypes = {
     title: PropTypes.string.isRequired,
     style: PropTypes.string,
@@ -69,5 +82,6 @@ MessageCardWithActions.propTypes = {
 export {
     MessageCard,
     SimpleMessageCard,
-    MessageCardWithActions
+    MessageCardWithActions,
+    CustomCard
 }

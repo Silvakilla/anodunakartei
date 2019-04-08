@@ -340,6 +340,26 @@ router.get('/getUserByEmail/:email',(req,res) => {
     });
 });
 
+router.get('/getUserByName/:username',(req,res) => {
+    mysql.PreparedQuery(sqlStrings.user.getUserByUsername,req.params.username)
+    .then((result) => {
+        if(result.fatal === true) {
+            return res.status(500).json({
+                message: 'query not successful',
+                rows: result
+            });
+        }
+        else {
+            return res.status(200).json({
+                result
+            });
+        }
+    })
+    .catch((error) => {
+        logger.error(error);
+    });
+});
+
 router.get('/getPermissions',(req,res) => {
     mysql.Query(sqlStrings.permission.getAllPermissions)
     .then((result) => {

@@ -37,7 +37,7 @@ insert into Permissions values (2,'User','Normale Benutzer');
 
 select * from Permissions;
 
-insert into User values (1,'Xaxahl','asdf.asdf@asdf.asdf','Xaxahl',1);
-insert into User values (2,'Zaera','asdf.asdf@asdf.asdf','Zaera',2);
+insert into User values (1,'Xaxahl','Password','asdf.asdf@asdf.asdf','Xaxahl',1);
+insert into User values (2,'Zaera','Password','asdf.asdf@asdf.asdf','Zaera',2);
 
 select * from User;

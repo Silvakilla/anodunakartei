@@ -30,7 +30,7 @@ export default class KeepRecord extends Component {
     getDetailedRecord = (id) => {
         let characterData = {};
 
-        axios.get('/api/getDetailedRecord/'+id)
+        axios.get('/api/getDetailedRecord/' + id)
         .then((response) => {
             characterData.id = id;
             characterData.firstName = response.data.rows[0].firstName;
