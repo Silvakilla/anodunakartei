@@ -2,7 +2,8 @@ import { Router } from 'express';
 let router = new Router();
 import mysql from '../utils/mysql';
 import logger from '../utils/logger';
-import sqlStrings from '../utils/sqlStrings'
+import sqlStrings from '../utils/sqlStrings';
+import md5 from 'md5';
 
 router.get('/connectTest',(req,res) => {
     mysql.Query('SELECT 1')
@@ -358,6 +359,32 @@ router.get('/getUserByName/:username',(req,res) => {
     .catch((error) => {
         logger.error(error);
     });
+});
+
+router.post('/addUser',(req,res) => {
+    const payload = [req.body.user.username,md5(req.body.user.password),req.body.user.email,req.body.user.characterName]
+    mysql.PreparedQuery(sqlStrings.user.addUser,payload)
+    .then((result) => {
+        if(result.fatal === true) {
+            return res.status(500).json({
+                message: 'query not successful',
+                rows: result
+            });
+        }
+        else {
+            return res.status(200).json({
+                message: 'query successful',
+                rows: result
+            });
+        }
+    })
+    .catch((error) => {
+        logger.error(error);
+    });
+});
+
+router.patch('/updateUser/:id',(req,res) => {
+    // id, {payload aka req.body}
 });
 
 router.get('/getPermissions',(req,res) => {

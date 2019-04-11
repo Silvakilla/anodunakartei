@@ -16,7 +16,7 @@ let connection = async () => {
     }
     catch (err) {
         logger.error(err);
-        throw err;
+        return err;
     }
 };
 

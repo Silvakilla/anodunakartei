@@ -4,6 +4,7 @@ import Button from  '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {MessageCardWithActions} from "../messageCard/messageCard";
 import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
 
 export default class RegisterFields extends Component {
     state = {
@@ -26,13 +27,19 @@ export default class RegisterFields extends Component {
     handleRegister = () => {
         const { user } = this.state;
 
-        // axios.post into database
+        axios.post('/api/addUser', {user})
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
 
     };
 
     render () {
         let cardActions = (
-            <Button variant={'contained'} color={'inherit'} onClick={this.handleRegister} href={'/'}>
+            <Button variant={'contained'} color={'inherit'} onClick={this.handleRegister}>
                 <Typography variant={'button'}>
                     Registrieren
                 </Typography>
