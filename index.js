@@ -1,7 +1,7 @@
-import path from 'path';
-import express from 'express';
-import bodyParser from 'body-parser';
-import logger from './src/utils/logger';
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const logger = require('./src/utils/logger');
 
 let app = express();
 
