@@ -26,7 +26,8 @@ let user = {
     getAllUser: 'select * from User',
     getUserById: 'select * from User where id = ?',
     getUserByEmail: 'select * from User where email = ?',
-    getUserByUsername: 'select * from User where username = ?'
+    getUserByUsername: 'select * from User where username = ?',
+    addUser: 'insert into User (username,password,email,characterName,permission) values (?,?,?,?,2)'
 };
 
 let permission = {
