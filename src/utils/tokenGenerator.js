@@ -1,9 +1,14 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-export function GenerateSessionToken (payload, key) {
+function GenerateSessionToken (payload, key) {
     return jwt.sign(payload, key);
 }
 
-export function GenerateToken (payload, key) {
+function GenerateToken (payload, key) {
     return jwt.sign(payload, key);
+}
+
+module.exports = {
+    GenerateSessionToken,
+    GenerateToken
 }

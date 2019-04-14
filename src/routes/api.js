@@ -1,9 +1,10 @@
-import { Router } from 'express';
+const Router = require('express');
+const mysql = require('../utils/mysql');
+const logger = require('../utils/logger');
+const sqlStrings = require('../utils/sqlStrings');
+const md5 = require('md5');
+
 let router = new Router();
-import mysql from '../utils/mysql';
-import logger from '../utils/logger';
-import sqlStrings from '../utils/sqlStrings';
-import md5 from 'md5';
 
 router.get('/connectTest',(req,res) => {
     mysql.Query('SELECT 1')

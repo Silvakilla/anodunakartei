@@ -1,6 +1,6 @@
-import mysql from 'promise-mysql';
-import config from '../../config/config';
-import logger from './logger';
+const mysql = require('promise-mysql');
+const config = require('../../config/config');
+const logger = require('./logger');
 
 let pool = mysql.createPool({
     connectionLimit: config.dbData.connectionLimit,
@@ -46,7 +46,7 @@ let PreparedQuery = async (sql,statements) => {
     }
 };
 
-export default {
+module.exports = {
     Query,
     PreparedQuery
 };

@@ -3,6 +3,8 @@
  * @param ms
  * @returns {Promise<any>}
  */
-export default function sleep(ms) {
+function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve,ms));
 }
+
+module.exports = sleep;

@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import axios from 'axios';
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
-export default function checkToken (token, key) {
+function checkToken (token, key) {
     let information = jwt.verify(token, key, (err, decoded) => {
         if(err) {
             return err;
@@ -19,3 +19,5 @@ export default function checkToken (token, key) {
         return true;
     }
 }
+
+module.exports = checkToken;

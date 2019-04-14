@@ -36,7 +36,7 @@ let permission = {
     getPermissionByName: 'select * from Permissions where name = ?'
 };
 
-export default {
+module.exports = {
     detailedRecord,
     shortRecord,
     phobia,

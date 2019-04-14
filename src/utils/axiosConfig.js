@@ -1,7 +1,9 @@
-export default setAxiosConfig = (signedToken) => {
+const setAxiosConfig = (signedToken) => {
     return {
         headers: {
             'Authorization': 'Bearer ' + signedToken
         }
     };
 };
+
+module.exports = setAxiosConfig;

@@ -1,6 +1,6 @@
 let dbData = {
     "dbURL": "localhost",
-    "dbUser": "root",
+    "dbUser": "kartei",
     "dbPassword": "hV+AKC,Dcn8:arv!",
     "testDbPassword": "root",
     "database": "kartei",
@@ -11,8 +11,7 @@ let jwtData = {
     "jwtSecret": "V_Crv5:qB$jdPRK2:5cm76J§U~dNmHVg:{T-dAuyY$Tr9!s{AP:<c$)UfRXmSGAg"
 };
 
-
-export default {
+module.exports = {
     dbData,
     jwtData
 };
