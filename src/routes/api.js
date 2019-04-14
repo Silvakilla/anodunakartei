@@ -9,6 +9,10 @@ let router = new Router();
 router.get('/connectTest',(req,res) => {
     mysql.Query('SELECT 1')
         .then((result) => {
+            if(result === undefined) {
+                return res.status(503);
+            }
+
             if(result.fatal === true) {
                 return res.status(500).json({
                     message: 'test not successful',
@@ -30,6 +34,10 @@ router.get('/connectTest',(req,res) => {
 router.get('/getDetailedRecords', (req,res) => {
     mysql.Query(sqlStrings.detailedRecord.getAllDetailedRecords)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -51,6 +59,10 @@ router.get('/getDetailedRecords', (req,res) => {
 router.get('/getDetailedRecord/:id', (req,res) => {
     mysql.PreparedQuery(sqlStrings.detailedRecord.getDetailedRecordById,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -72,6 +84,12 @@ router.get('/getDetailedRecord/:id', (req,res) => {
 router.get('/getFullDetailedRecord/:id', (req,res) => {
     mysql.PreparedQuery(sqlStrings.detailedRecord.getFullDetailedRecord,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503).json({
+                message: 'service not available'
+            });
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -93,6 +111,10 @@ router.get('/getFullDetailedRecord/:id', (req,res) => {
 router.get('/getShortRecords', (req,res) => {
     mysql.Query(sqlStrings.shortRecord.getAllShortRecords)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -114,6 +136,10 @@ router.get('/getShortRecords', (req,res) => {
 router.get('/getShortRecord/:id',(req,res) => {
     mysql.PreparedQuery(sqlStrings.shortRecord.getShortRecordById,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -135,6 +161,10 @@ router.get('/getShortRecord/:id',(req,res) => {
 router.get('/getPhobias',(req,res) => {
     mysql.Query(sqlStrings.phobia.getAllPhobias)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -156,6 +186,10 @@ router.get('/getPhobias',(req,res) => {
 router.get('/getPhobia/:id',(req,res) => {
     mysql.PreparedQuery(sqlStrings.phobia.getAllPhobiaById,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -177,6 +211,10 @@ router.get('/getPhobia/:id',(req,res) => {
 router.get('/getPhobiaByName/:name',(req,res) => {
     mysql.PreparedQuery(sqlStrings.phobia.getAllPhobiaByName,req.params.name)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -198,6 +236,10 @@ router.get('/getPhobiaByName/:name',(req,res) => {
 router.get('/getPhobiaForRecord/:id',(req,res) => {
     mysql.PreparedQuery(sqlStrings.phobia.getAllPhobiasForId,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -219,6 +261,10 @@ router.get('/getPhobiaForRecord/:id',(req,res) => {
 router.get('/getRecordEntries',(req,res) => {
     mysql.Query(sqlStrings.recordEntry.getAllRecordEntries)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -240,6 +286,10 @@ router.get('/getRecordEntries',(req,res) => {
 router.get('/getRecordEntries/:id',(req,res) => {
     mysql.PreparedQuery(sqlStrings.recordEntry.getAllRecordEntriesForId,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -261,6 +311,10 @@ router.get('/getRecordEntries/:id',(req,res) => {
 router.get('/getRecordEntry/:id',(req,res) => {
     mysql.PreparedQuery(sqlStrings.recordEntry.getRecordEntryById,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -282,6 +336,10 @@ router.get('/getRecordEntry/:id',(req,res) => {
 router.get('/getUser',(req,res) => {
     mysql.Query(sqlStrings.user.getAllUser)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -303,6 +361,10 @@ router.get('/getUser',(req,res) => {
 router.get('/getUser/:id',(req,res) => {
     mysql.PreparedQuery(sqlStrings.user.getUserById,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -324,6 +386,10 @@ router.get('/getUser/:id',(req,res) => {
 router.get('/getUserByEmail/:email',(req,res) => {
     mysql.PreparedQuery(sqlStrings.user.getUserByEmail,req.params.email)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -345,6 +411,10 @@ router.get('/getUserByEmail/:email',(req,res) => {
 router.get('/getUserByName/:username',(req,res) => {
     mysql.PreparedQuery(sqlStrings.user.getUserByUsername,req.params.username)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -366,6 +436,10 @@ router.post('/addUser',(req,res) => {
     const payload = [req.body.user.username,md5(req.body.user.password),req.body.user.email,req.body.user.characterName]
     mysql.PreparedQuery(sqlStrings.user.addUser,payload)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -391,6 +465,10 @@ router.patch('/updateUser/:id',(req,res) => {
 router.get('/getPermissions',(req,res) => {
     mysql.Query(sqlStrings.permission.getAllPermissions)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -412,6 +490,10 @@ router.get('/getPermissions',(req,res) => {
 router.get('/getPermission/:id',(req,res) => {
     mysql.PreparedQuery(sqlStrings.permission.getPermissionById,req.params.id)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',
@@ -433,6 +515,10 @@ router.get('/getPermission/:id',(req,res) => {
 router.get('/getPermissionByName/:name',(req,res) => {
     mysql.PreparedQuery(sqlStrings.permission.getPermissionByName,req.params.name)
     .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
         if(result.fatal === true) {
             return res.status(500).json({
                 message: 'query not successful',

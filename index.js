@@ -21,7 +21,6 @@ app.all('*',(req,res) => {
 
 app.listen(3000,() => {
     logger.info('App running now on localhost:3000');
-    logger.info('Timestamp: ' + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 });
 
 module.exports = app;

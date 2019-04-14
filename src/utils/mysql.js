@@ -23,9 +23,17 @@ let connection = async () => {
 let Query = async (sql) => {
     try {
         const conn = await connection();
-        let result = conn.query(sql);
-        conn.release();
-        return result;
+
+        console.log(conn);
+
+        if(conn.fatal != true) {
+            let result = conn.query(sql);
+            conn.release();
+            return result;
+        }
+        else {
+            logger.error(conn);
+        }
     }
     catch (err) {
         logger.error(err);
@@ -36,9 +44,15 @@ let Query = async (sql) => {
 let PreparedQuery = async (sql,statements) => {
     try {
         const conn = await connection();
-        let result = conn.query(sql, statements);
-        conn.release();
-        return result;
+
+        if(conn.fatal != true) {
+            let result = conn.query(sql, statements);
+            conn.release();
+            return result;
+        }
+        else {
+            logger.error(conn);
+        }
     }
     catch (err) {
         logger.error(err);

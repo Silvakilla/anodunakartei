@@ -20,15 +20,17 @@ export default class KeepRecords extends Component {
             entries: [],
             phobias: []
         },
-        records: []
+        records: null
     };
 
     componentDidMount() {
-        axios.get('/api/getShortRecords')
+        axios.get('/api/getShortRecords', { timeout: 2500 })
         .then((response) => {
+            console.log(response);
             this.setState({records: response.data.rows});
         })
         .catch((error) => {
+            axios.Cancel();
             console.log(error);
         });
     }
@@ -41,11 +43,13 @@ export default class KeepRecords extends Component {
     render () {
         const {records} = this.state;
 
+        console.log(records);
+
         return (
             <div>
                 <TopMenu title={cms.injuryRecords}/>
                 <Grid container className={'cardRoot'}>
-                    {records != null ? 
+                    {records != null || !_.isEmpty(records) ? 
                     <Grid item xs={12}>
                         <Grid container spacing={16} direction={'row'} justify={'center'} alignItems={'center'}>
                             {records.map((mRecord,key) => ( //records evt begrenzen, dass nicht zuviele aufeinmal geladen werden
