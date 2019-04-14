@@ -24,4 +24,4 @@ app.listen(3000,() => {
     logger.info('Timestamp: ' + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 });
 
-export default app;
+module.exports = app;
