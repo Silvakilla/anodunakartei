@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import TopMenu from "../../components/topMenu/topMenu";
 import Grid from '@material-ui/core/Grid';
 import KeepRecord from "../../components/keepRecord/keepRecord";
+import {MessageCard} from "../../components/messageCard/messageCard";
 import _ from 'lodash';
 import axios from 'axios';
 
@@ -43,6 +44,7 @@ export default class KeepRecords extends Component {
             <div>
                 <TopMenu title={cms.injuryRecords}/>
                 <Grid container className={'cardRoot'}>
+                    {records != null ? 
                     <Grid item xs={12}>
                         <Grid container spacing={16} direction={'row'} justify={'center'} alignItems={'center'}>
                             {records.map((mRecord,key) => ( //records evt begrenzen, dass nicht zuviele aufeinmal geladen werden
@@ -57,7 +59,21 @@ export default class KeepRecords extends Component {
                             ))}
                         </Grid>
                     </Grid>
+                    : 
+                    <Grid item xs={12}>
+                        <Grid container spacing={16} direction={'row'} justify={'center'} alignItems={'center'}>
+                            <Grid item>
+                                <MessageCard title={cms.noDataTitle} style={'defaultMessageCard'}>
+                                    <Typography variant={'body1'}>
+                                        {cms.noDataText}
+                                    </Typography>
+                                </MessageCard>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    }
                 </Grid>
+                
             </div>
         );
     }

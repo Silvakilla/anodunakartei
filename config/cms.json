@@ -1,6 +1,8 @@
 {
   "welcome": "Hier können Mitglieder der Gilde Anoduna Therosha ihre Militär- und Krankenakte einsehen",
   "welcomeTitle": "Willkommen bei der Kartei von Anoduna",
+  "noDataTitle": "Keine Daten vorhanden",
+  "noDataText": "Es sind keine Daten zum laden vorhanden oder es fehlen die Rechte sie einzusehen.",
   "phobias": "Besonderheiten",
   "injuries": "Verletzungen",
   "injuryRecord": "Krankenakte",

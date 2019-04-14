@@ -11,16 +11,6 @@ import KeepRecords from "./container/keepRecords/keepRecords";
 import Register from "./container/register/register";
 import AuthProvider from './components/authController/authController';
 
-/*
-Context statt props verwenden
-klappt bisher nicht
-benötigt provider & consumer
-solange localstorage used:
-    1x JWT-Token für Login
-    1x JWT-Token für API-Kommunikation
-JWT im Context speichern
- */
-
 render(
     <AuthProvider>
         <Fragment>
