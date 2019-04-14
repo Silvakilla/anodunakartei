@@ -1,7 +1,7 @@
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
-const logger = require('./src/utils/logger');
+import path from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
+import logger from './src/utils/logger';
 
 let app = express();
 
@@ -24,4 +24,4 @@ app.listen(3000,() => {
     logger.info('Timestamp: ' + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 });
 
-module.exports = app;
+export default app;
