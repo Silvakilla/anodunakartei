@@ -31,8 +31,12 @@ export default class AuthController extends Component {
 
         let result = axios.get('/api/getUserByName/' + username, { timeout: 2500 })
             .then((result) => {
-                console.log(result);
-                return result;
+                let user = {
+                    username: result.data.result[0].username,
+                    password: result.data.result[0].password
+                }
+
+                return user;
             })
             .catch((error) => {
                 console.log(error);

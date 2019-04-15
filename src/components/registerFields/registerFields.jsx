@@ -39,7 +39,7 @@ export default class RegisterFields extends Component {
 
     render () {
         let cardActions = (
-            <Button variant={'contained'} color={'inherit'} onClick={this.handleRegister}>
+            <Button variant={'contained'} color={'inherit'} onClick={this.handleRegister} href={'/'}>
                 <Typography variant={'button'}>
                     Registrieren
                 </Typography>

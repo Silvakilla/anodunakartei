@@ -442,14 +442,12 @@ router.post('/addUser',(req,res) => {
 
         if(result.fatal === true) {
             return res.status(500).json({
-                message: 'query not successful',
-                rows: result
+                message: 'query not successful'
             });
         }
         else {
             return res.status(200).json({
-                message: 'query successful',
-                rows: result
+                message: 'query successful'
             });
         }
     })
