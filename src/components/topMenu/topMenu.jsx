@@ -12,6 +12,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import SideMenu from "../sideMenu/sideMenu";
 
+import { AuthConsumer } from '../authController/authController';
+
 const styles = {
     root: {
         flexGrow: 1
@@ -34,8 +36,8 @@ class TopMenu extends Component {
 
     handleLogout = () => {
         this.setState({auth: 'false'});
-        localStorage.setItem('auth','false');
-        localStorage.removeItem('session');
+        localStorage.removeItem('uu');
+        localStorage.removeItem('a');
         this.setState({ anchorEl: null});
     };
 
@@ -66,40 +68,43 @@ class TopMenu extends Component {
                         <Typography variant={'h6'} color={'inherit'} className={classes.grow}>
                             {this.props.title}
                         </Typography>
-                        {auth !== 'false' && localStorage.getItem('session') !== undefined ? (
-                            <div>
-                                <IconButton
-                                    aria-owns={open ? 'menu-appbar' : undefined}
-                                    aria-haspopup={'true'}
-                                    onClick={this.handleMenu}
-                                    color={'inherit'}
-                                >
-                                    <Icon>account_circle</Icon>
-                                </IconButton>
-                                <Menu
-                                    id={'menu-appbar'}
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={this.handleClose}
-                                >
-                                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>My Account</MenuItem>
-                                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                                </Menu>
-                            </div>
-                        ) : <div>
-                            <Button variant={'contained'} color={'primary'} href={'/login'}>
-                                <Typography variant={'button'} color={'inherit'} className={'whiteText'}>Login</Typography>
-                            </Button>
-                        </div>}
+                        <AuthConsumer>
+                        {({isAuthenticated}) => {
+                            {isAuthenticated ? (
+                                <div>
+                                    <IconButton
+                                        aria-owns={open ? 'menu-appbar' : undefined}
+                                        aria-haspopup={'true'}
+                                        onClick={this.handleMenu}
+                                        color={'inherit'}
+                                    >
+                                        <Icon>account_circle</Icon>
+                                    </IconButton>
+                                    <Menu
+                                        id={'menu-appbar'}
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={open}
+                                        onClose={this.handleClose}>
+                                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                        <MenuItem onClick={this.handleClose}>My Account</MenuItem>
+                                        <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                                    </Menu>
+                                </div>
+                            ) : <div>
+                                <Button variant={'contained'} color={'primary'} href={'/login'}>
+                                    <Typography variant={'button'} color={'inherit'} className={'whiteText'}>Login</Typography>
+                                </Button>
+                            </div>}
+                        }}
+                        </AuthConsumer>
                     </Toolbar>
                 </AppBar>
                 <SideMenu open={sideMenuOpen}/>
