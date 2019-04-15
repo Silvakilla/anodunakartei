@@ -436,6 +436,30 @@ router.get('/getUserByName/:username',(req,res) => {
     });
 });
 
+router.get('/getOnlyUsernamePassword/:username',(req,res) => {
+    mysql.PreparedQuery(sqlStrings.user.getOnlyUsernamePassword,req.params.username)
+    .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
+        if(result.fatal === true) {
+            return res.status(500).json({
+                message: 'query not successful',
+                rows: result
+            });
+        }
+        else {
+            return res.status(200).json({
+                result
+            });
+        }
+    })
+    .catch((error) => {
+        logger.error(error);
+    });
+});
+
 router.post('/addUser',(req,res) => {
     const payload = [req.body.user.username,md5(req.body.user.password),req.body.user.email,req.body.user.characterName]
     mysql.PreparedQuery(sqlStrings.user.addUser,payload)
