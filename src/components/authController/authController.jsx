@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { GenerateSessionToken } from '../../utils/tokenGenerator';
 import config from '../../../config/config';
+import crypto from 'crypto';
 
 const AuthContext = createContext({});
 
@@ -60,11 +61,11 @@ export default class AuthController extends Component {
                 token: this.state.user.token
             }
 
-            localStorage.setItem("uu", JSON.stringify(user));
+            localStorage.setItem("uu", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(user)).digest(hex));
         }
         
         if(this.state.isAuthenticated !== prevState.isAuthenticated) {
-            localStorage.setItem("a", this.state.isAuthenticated);
+            localStorage.setItem("a", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(this.state.isAuthenticated)).digest(hex));
         }
     }
 
