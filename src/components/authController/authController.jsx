@@ -66,6 +66,9 @@ export default class AuthController extends Component {
         let data = Buffer.from(object.data, 'hex');
         let decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), iv);
         let dec = decipher.update(data, 'hex', 'utf8');
+
+        console.log(dec);
+
         dec = Buffer.concat([dec, decipher.final()]);
         return dec;
     }
