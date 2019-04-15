@@ -12,7 +12,7 @@ let jwtData = {
 };
 
 let cryptoData = {
-    "secret": "fz.E~J<>h$5Wm$Bn3R+Xd$LY_KpdU6.wr_NQ=Kdz$uM:GDwZA%=U?)~=)YAtuGB2" 
+    "secret": "fz.E~J<>h$5Wm$Bn3R+Xd$LY_KpdU6.w" 
 }
 
 module.exports = {
