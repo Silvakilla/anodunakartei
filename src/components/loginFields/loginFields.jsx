@@ -29,7 +29,7 @@ export default class LoginFields extends Component {
         let cardActions = (
             <AuthConsumer>
                 {({handleLogin}) => (
-                    <Button variant={'contained'} color={'inherit'} onClick={() => {handleLogin(user.username,user.password)}} href={'/'}>
+                    <Button variant={'contained'} color={'inherit'} onClick={() => {handleLogin(user.username,user.password)}}>
                         <Typography variant={'button'}>
                             Login
                         </Typography>
