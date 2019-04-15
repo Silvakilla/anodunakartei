@@ -47,7 +47,7 @@ export default class AuthController extends Component {
     }
 
     state = {
-        user: crypto.createDecipheriv('sha256',config.cryptoData.secret, Buffer.alloc(16,0)).write(JSON.parse(localStorage.getItem('uu'), 'hex')),
+        user: crypto.createDecipher('sha256',config.cryptoData.secret).write(JSON.parse(localStorage.getItem('uu'), 'hex')),
         isAuthenticated: JSON.parse(localStorage.getItem('a')),
         updateUser: this.updateUser,
         setAuthentication: this.setAuthentication,
