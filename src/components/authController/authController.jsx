@@ -18,40 +18,30 @@ const AuthContext = createContext({
 export const AuthConsumer = AuthContext.Consumer;
 
 export default class AuthController extends Component {
-    userRequest = async (username) => {
-        return axios.get('/api/getUserByName/' + username, { timeout: 2500 })
+    handeLogin = (username, password) => {
+        axios.get('/api/getUserByName/' + username, { timeout: 2500 })
             .then((result) => {
                 let user = {
                     username: result.data.result[0].username,
                     password: result.data.result[0].password
                 }
 
-                return user;
+                if(CheckAccount({username: username, password: md5(password)},user)) {
+                    let userData = {
+                        username: username,
+                        token: GenerateSessionToken({username: username, password: md5(password)}, config.jwtData.jwtSecret)
+                    }
+
+                    this.setAuthentication(true);
+                    this.updateUser(userData);
+                }
+                else {
+                    this.setAuthentication(false);
+                }
             })
             .catch((error) => {
                 console.log(error);
             });
-    }
-
-    handeLogin = (username, password) => {
-        let payload = {
-            username: username,
-            password: md5(password)
-        };
-
-        let user = {
-            username: username,
-            token: GenerateSessionToken(payload, config.jwtData.jwtSecret)
-        };
-
-        let result = this.userRequest(username);
-
-        if(CheckAccount(payload,result)) {
-            this.setAuthentication(true);
-        }
-        else {
-            this.setAuthentication(false);
-        }
     }
 
     updateUser = (user) => {
