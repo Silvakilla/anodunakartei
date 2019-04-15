@@ -70,7 +70,7 @@ class TopMenu extends Component {
                         </Typography>
                         <AuthConsumer>
                         {({isAuthenticated}) => {
-                            {isAuthenticated ? (
+                            {isAuthenticated === true ? (
                                 <div>
                                     <IconButton
                                         aria-owns={open ? 'menu-appbar' : undefined}
