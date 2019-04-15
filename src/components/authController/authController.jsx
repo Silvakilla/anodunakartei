@@ -7,11 +7,7 @@ import { GenerateSessionToken } from '../../utils/tokenGenerator';
 import config from '../../../config/config';
 
 const AuthContext = createContext({
-    user: null,
-    isAuthenticated: false,
-    updateUser: () => {},
-    setAuthentication: () => {},
-    handeLogin: () => {}
+    
 })
 
 export const AuthConsumer = AuthContext.Consumer;
