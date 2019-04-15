@@ -5,10 +5,9 @@ import axios from 'axios';
 
 import { GenerateSessionToken } from '../../utils/tokenGenerator';
 import config from '../../../config/config';
+import bcrypt from 'bcrypt';
 
-const AuthContext = createContext({
-    
-})
+const AuthContext = createContext({});
 
 export const AuthConsumer = AuthContext.Consumer;
 
@@ -53,6 +52,15 @@ export default class AuthController extends Component {
         updateUser: this.updateUser,
         setAuthentication: this.setAuthentication,
         handleLogin: this.handeLogin
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.user !== prevState.user) {
+            localStorage.setItem("u");
+        } 
+        else if(this.state.isAuthenticated !== prevState.isAuthenticated) {
+            localStorage.setItem("a");
+        }
     }
 
     render() {
