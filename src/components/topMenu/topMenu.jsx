@@ -69,39 +69,42 @@ class TopMenu extends Component {
                             {this.props.title}
                         </Typography>
                         <AuthConsumer>
-                            {isAuthenticated === true ? (
+                            {(isAuthenticated) => (
                                 <div>
-                                    <IconButton
-                                        aria-owns={open ? 'menu-appbar' : undefined}
-                                        aria-haspopup={'true'}
-                                        onClick={this.handleMenu}
-                                        color={'inherit'}
-                                    >
-                                        <Icon>account_circle</Icon>
-                                    </IconButton>
-                                    <Menu
-                                        id={'menu-appbar'}
-                                        anchorEl={anchorEl}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={open}
-                                        onClose={this.handleClose}>
-                                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>My Account</MenuItem>
-                                        <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                                    </Menu>
+                                    {isAuthenticated ? 
+                                        <div>
+                                            <IconButton
+                                            aria-owns={open ? 'menu-appbar' : undefined}
+                                            aria-haspopup={'true'}
+                                            onClick={this.handleMenu}
+                                            color={'inherit'}>
+                                                <Icon>account_circle</Icon>
+                                            </IconButton>
+                                            <Menu
+                                                id={'menu-appbar'}
+                                                anchorEl={anchorEl}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={open}
+                                                onClose={this.handleClose}>
+                                                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                                <MenuItem onClick={this.handleClose}>My Account</MenuItem>
+                                                <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                                            </Menu>
+                                        </div>
+                                    : 
+                                        <Button variant={'contained'} color={'primary'} href={'/login'}>
+                                            <Typography variant={'button'} color={'inherit'} className={'whiteText'}>Login</Typography>
+                                        </Button>
+                                    }
                                 </div>
-                            ) : <div>
-                                <Button variant={'contained'} color={'primary'} href={'/login'}>
-                                    <Typography variant={'button'} color={'inherit'} className={'whiteText'}>Login</Typography>
-                                </Button>
-                            </div>}
+                            )}
                         </AuthConsumer>
                     </Toolbar>
                 </AppBar>
