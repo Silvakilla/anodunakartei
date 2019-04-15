@@ -62,7 +62,10 @@ export default class AuthController extends Component {
             }
 
             localStorage.setItem("uu", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(user)).digest('hex'));
-            console.log(crypto.createDecipheriv('sha256',config.cryptoData.secret, Buffer.alloc(16,0)).write(JSON.parse(localStorage.getItem('uu'), 'hex')));
+
+            const decpiher = crypto.createDecipheriv('sha256',config.cryptoData.secret, Buffer.alloc(16,0));
+
+            console.log(decpiher.write(localStorage.getItem('uu'), 'hex'));
         }
         
         if(this.state.isAuthenticated !== prevState.isAuthenticated) {
