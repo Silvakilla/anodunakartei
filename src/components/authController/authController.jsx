@@ -4,7 +4,7 @@ import md5 from 'md5';
 import axios from 'axios';
 
 import { GenerateSessionToken } from '../../utils/tokenGenerator';
-import CheckToken from '../../utils/tokenChecker';
+import CheckAccount from '../../utils/accountChecker';
 import config from '../../../config/config';
 
 const AuthContext = createContext({
@@ -29,17 +29,16 @@ export default class AuthController extends Component {
             token: GenerateSessionToken(payload, config.jwtData.jwtSecret)
         };
 
-        if(CheckToken(user.token,config.jwtData.jwtSecret)) {
-            let isUser = axios.get('/api/getUserByName/' + username)
-            .then((response) => {
-                console.log(response);
-
+        let result = axios.get('/api/getUserByName/' + username, { timeout: 2500 })
+            .then((result) => {
+                console.log(result);
+                return result;
             })
             .catch((error) => {
                 console.log(error);
-                return false;
             });
 
+        if(CheckAccount(payload,result)) {
             this.setAuthentication(true);
         }
         else {

@@ -26,7 +26,6 @@ export default class KeepRecords extends Component {
     componentDidMount() {
         axios.get('/api/getShortRecords', { timeout: 2500 })
         .then((response) => {
-            console.log(response);
             this.setState({records: response.data.rows});
         })
         .catch((error) => {
@@ -42,8 +41,6 @@ export default class KeepRecords extends Component {
 
     render () {
         const {records} = this.state;
-
-        console.log(records);
 
         return (
             <div>
