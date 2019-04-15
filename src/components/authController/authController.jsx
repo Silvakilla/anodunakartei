@@ -18,18 +18,8 @@ const AuthContext = createContext({
 export const AuthConsumer = AuthContext.Consumer;
 
 export default class AuthController extends Component {
-    handeLogin = (username, password) => {
-        let payload = {
-            username: username,
-            password: md5(password)
-        };
-
-        let user = {
-            username: username,
-            token: GenerateSessionToken(payload, config.jwtData.jwtSecret)
-        };
-
-        let result = axios.get('/api/getUserByName/' + username, { timeout: 2500 })
+    userRequest = async (username) => {
+        return axios.get('/api/getUserByName/' + username, { timeout: 2500 })
             .then((result) => {
                 let user = {
                     username: result.data.result[0].username,
@@ -41,6 +31,20 @@ export default class AuthController extends Component {
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    handeLogin = (username, password) => {
+        let payload = {
+            username: username,
+            password: md5(password)
+        };
+
+        let user = {
+            username: username,
+            token: GenerateSessionToken(payload, config.jwtData.jwtSecret)
+        };
+
+        let result = userRequest(username);
 
         if(CheckAccount(payload,result)) {
             this.setAuthentication(true);
