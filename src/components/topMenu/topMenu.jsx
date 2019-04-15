@@ -69,7 +69,6 @@ class TopMenu extends Component {
                             {this.props.title}
                         </Typography>
                         <AuthConsumer>
-                        {({isAuthenticated}) => {
                             {isAuthenticated === true ? (
                                 <div>
                                     <IconButton
@@ -103,7 +102,6 @@ class TopMenu extends Component {
                                     <Typography variant={'button'} color={'inherit'} className={'whiteText'}>Login</Typography>
                                 </Button>
                             </div>}
-                        }}
                         </AuthConsumer>
                     </Toolbar>
                 </AppBar>
