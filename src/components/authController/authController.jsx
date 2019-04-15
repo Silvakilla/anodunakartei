@@ -44,7 +44,7 @@ export default class AuthController extends Component {
             token: GenerateSessionToken(payload, config.jwtData.jwtSecret)
         };
 
-        let result = userRequest(username);
+        let result = this.userRequest(username);
 
         if(CheckAccount(payload,result)) {
             this.setAuthentication(true);
