@@ -54,7 +54,7 @@ export default class AuthController extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(this.state.user.username !== prevState.user.username) {
+        if(this.state.user !== prevState.user) {
             let user = {
                 username: this.state.user.username,
                 token: this.state.user.token
