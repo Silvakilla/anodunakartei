@@ -46,12 +46,38 @@ export default class AuthController extends Component {
         this.setState({isAuthenticated: auth});
     }
 
+    encrypt = (payload) => {
+        let cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), crypto.randomBytes(16));
+        let enc = cipher.update(payload);
+        enc = Buffer.concat([enc, cipher.final()]);
+        
+        let finishedCipher = {
+            iv: iv.toString('hex'),
+            data: enc.toString('hex') 
+        }
+
+        localStorage.setItem('uu', JSON.stringify(finishedCipher));
+    }
+
+    decrypt = (payload) => {
+        let iv = Buffer.from(payload.iv, 'hex');
+        let data = Buffer.from(payload.data, 'hex');
+        let decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), iv);
+        let dec = decipher.update(data);
+        dec = Buffer.concat([dec, decipher.final()]);
+        return dec;
+    }
+
     state = {
-        user: "",
+        user: {},
         isAuthenticated: JSON.parse(localStorage.getItem('a')),
         updateUser: this.updateUser,
         setAuthentication: this.setAuthentication,
         handleLogin: this.handeLogin
+    }
+
+    componentWillMount() {
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -61,11 +87,9 @@ export default class AuthController extends Component {
                 token: this.state.user.token
             }
 
-            localStorage.setItem("uu", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(user)).digest('hex'));
+            this.encrypt(JSON.stringify(user));
+            console.log(this.decrypt(localStorage.getItem('uu')));
 
-            const decpiher = crypto.createDecipheriv('sha256',config.cryptoData.secret, Buffer.alloc(16,0));
-
-            console.log(decpiher.write(localStorage.getItem('uu'), 'hex'));
         }
         
         if(this.state.isAuthenticated !== prevState.isAuthenticated) {
