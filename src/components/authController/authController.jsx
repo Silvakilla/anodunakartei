@@ -47,7 +47,8 @@ export default class AuthController extends Component {
     }
 
     encrypt = (payload) => {
-        let cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), crypto.randomBytes(16));
+        let iv = crypto.randomBytes(16);
+        let cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), iv);
         let enc = cipher.update(payload);
         enc = Buffer.concat([enc, cipher.final()]);
         
