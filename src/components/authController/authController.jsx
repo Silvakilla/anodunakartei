@@ -5,7 +5,6 @@ import axios from 'axios';
 
 import { GenerateSessionToken } from '../../utils/tokenGenerator';
 import config from '../../../config/config';
-import bcrypt from 'bcrypt';
 
 const AuthContext = createContext({});
 
