@@ -49,7 +49,7 @@ export default class AuthController extends Component {
     encrypt = (payload) => {
         let iv = crypto.randomBytes(16);
         let cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), iv);
-        let enc = cipher.update(payload);
+        let enc = cipher.update(payload, 'utf8');
         enc = Buffer.concat([enc, cipher.final()]);
         
         let finishedCipher = {
@@ -65,7 +65,7 @@ export default class AuthController extends Component {
         let iv = Buffer.from(object.iv, 'hex');
         let data = Buffer.from(object.data, 'hex');
         let decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), iv);
-        let dec = decipher.update(data);
+        let dec = decipher.update(data, 'hex', 'utf8');
         dec = Buffer.concat([dec, decipher.final()]);
         return dec;
     }
