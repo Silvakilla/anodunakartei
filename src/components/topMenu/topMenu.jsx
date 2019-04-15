@@ -71,7 +71,7 @@ class TopMenu extends Component {
                         <AuthConsumer>
                             {(isAuthenticated) => (
                                 <div>
-                                    {isAuthenticated ? 
+                                    {isAuthenticated === true ? 
                                         <div>
                                             <IconButton
                                             aria-owns={open ? 'menu-appbar' : undefined}
