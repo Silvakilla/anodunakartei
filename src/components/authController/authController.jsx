@@ -29,14 +29,16 @@ export default class AuthController extends Component {
             token: GenerateSessionToken(payload, config.jwtData.jwtSecret)
         };
 
-        let result = axios.get('/api/getUserByName/' + username, { timeout: 2500 })
+        let result = {};
+
+        axios.get('/api/getUserByName/' + username, { timeout: 2500 })
             .then((result) => {
                 let user = {
                     username: result.data.result[0].username,
                     password: result.data.result[0].password
                 }
 
-                return user;
+                result = user;
             })
             .catch((error) => {
                 console.log(error);

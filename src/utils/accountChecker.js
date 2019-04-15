@@ -1,6 +1,6 @@
 function checkAccount(payload,result) {
     console.log(payload);
-    console.log(result.username);
+    console.log(result);
 }
 
 module.exports = checkAccount;
