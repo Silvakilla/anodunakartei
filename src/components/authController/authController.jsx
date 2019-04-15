@@ -47,8 +47,8 @@ export default class AuthController extends Component {
 
     state = {
         user: {
-            username: localStorage.getItem('uu')[0],
-            token: localStorage.getItem('uu')[1]
+            username: JSON.parse(localStorage.getItem('uu'))[0],
+            token: JSON.parse(localStorage.getItem('uu'))[1]
         },
         isAuthenticated: JSON.parse(localStorage.getItem('a')),
         updateUser: this.updateUser,
@@ -58,9 +58,10 @@ export default class AuthController extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if(this.state.user.username !== prevState.user.username) {
-            localStorage.setItem("uu", [this.state.user.username,this.state.user.token]);
+            localStorage.setItem("uu", JSON.stringify([this.state.user.username,this.state.user.token]));
         }
-        else if(this.state.isAuthenticated !== prevState.isAuthenticated) {
+        
+        if(this.state.isAuthenticated !== prevState.isAuthenticated) {
             localStorage.setItem("a", this.state.isAuthenticated);
         }
     }
