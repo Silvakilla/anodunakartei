@@ -46,8 +46,8 @@ export default class AuthController extends Component {
     }
 
     state = {
-        user: null,
-        isAuthenticated: null,
+        user: localStorage.getItem('u'),
+        isAuthenticated: localStorage.getItem('a'),
         updateUser: this.updateUser,
         setAuthentication: this.setAuthentication,
         handleLogin: this.handeLogin
