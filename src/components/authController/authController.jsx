@@ -4,7 +4,6 @@ import md5 from 'md5';
 import axios from 'axios';
 
 import { GenerateSessionToken } from '../../utils/tokenGenerator';
-import CheckAccount from '../../utils/accountChecker';
 import config from '../../../config/config';
 
 const AuthContext = createContext({
@@ -26,10 +25,10 @@ export default class AuthController extends Component {
                     password: result.data.result[0].password
                 }
 
-                if(CheckAccount({username: username, password: md5(password)},user)) {
+                if(md5(password) == user.password) {
                     let userData = {
-                        username: username,
-                        token: GenerateSessionToken({username: username, password: md5(password)}, config.jwtData.jwtSecret)
+                        username: user.username,
+                        token: GenerateSessionToken(user, config.jwtData.jwtSecret)
                     }
 
                     this.setAuthentication(true);

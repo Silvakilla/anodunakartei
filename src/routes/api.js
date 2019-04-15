@@ -6,6 +6,10 @@ const md5 = require('md5');
 
 let router = new Router();
 
+/**
+ * Rückgaben aus DB-Verschlüsseln
+ */
+
 router.get('/connectTest',(req,res) => {
     mysql.Query('SELECT 1')
         .then((result) => {
