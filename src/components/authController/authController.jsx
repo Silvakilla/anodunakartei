@@ -46,39 +46,40 @@ export default class AuthController extends Component {
         this.setState({isAuthenticated: auth});
     }
 
-    encrypt = (payload) => {
-        let iv = crypto.randomBytes(16);
-        let cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), iv);
-        let enc = cipher.update(payload, 'utf8');
-        enc = Buffer.concat([enc, cipher.final()]);
+    encrypt = (itemName,payload) => {
+        let val1 = crypto.randomBytes(16);
+        let cipher = crypto.createCipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), val1);
+        let encrypted = cipher.update(payload, 'utf8');
+        encrypted = Buffer.concat([encrypted, cipher.final()]);
         
-        let finishedCipher = {
-            iv: iv.toString('hex'),
-            data: enc.toString('hex') 
+        let finished = {
+            val1: val1.toString('hex'),
+            val2: encrypted.toString('hex') 
         }
 
-        localStorage.setItem('uu', JSON.stringify(finishedCipher));
+        localStorage.setItem(itemName, JSON.stringify(finished));
     }
 
     decrypt = (payload) => {
         let object = JSON.parse(payload);
-        let iv = Buffer.from(object.iv, 'hex');
-        let data = Buffer.from(object.data, 'hex');
-        let decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), iv);
-        let dec = decipher.update(data, 'hex', 'utf8');
-        return JSON.parse(dec);
+        let val1 = Buffer.from(object.val1, 'hex');
+        let val2 = Buffer.from(object.val2, 'hex');
+        let decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), val1);
+        let decrypted = decipher.update(val2, 'hex', 'utf8');
+        return JSON.parse(decrypted);
     }
 
     state = {
         user: {},
-        isAuthenticated: JSON.parse(localStorage.getItem('a')),
+        isAuthenticated: undefined,
         updateUser: this.updateUser,
         setAuthentication: this.setAuthentication,
         handleLogin: this.handeLogin
     }
 
     componentWillMount() {
-
+        this.setState({user: this.decrypt(localStorage.getItem('uu'))});
+        this.setState({isAuthenticated: this.decrypt(localStorage.getItem('a'))});
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -88,13 +89,11 @@ export default class AuthController extends Component {
                 token: this.state.user.token
             }
 
-            this.encrypt(JSON.stringify(user));
-            console.log(this.decrypt(localStorage.getItem('uu')));
-
+            this.encrypt('uu',JSON.stringify(user));
         }
         
         if(this.state.isAuthenticated !== prevState.isAuthenticated) {
-            localStorage.setItem("a", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(this.state.isAuthenticated)).digest('hex'));
+            this.encrypt('a',JSON.stringify(this.state.isAuthenticated));
         }
     }
 
