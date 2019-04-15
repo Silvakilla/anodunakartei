@@ -55,7 +55,7 @@ export default class AuthController extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if(this.state.user !== prevState.user) {
-            localStorage.setItem("u", this.state.username + ' ' + this.state.token);
+            localStorage.setItem("u", {username: this.state.user.username, token: this.state.user.token});
         } 
         else if(this.state.isAuthenticated !== prevState.isAuthenticated) {
             localStorage.setItem("a", this.state.isAuthenticated);
