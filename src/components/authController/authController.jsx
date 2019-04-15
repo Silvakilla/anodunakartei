@@ -61,8 +61,9 @@ export default class AuthController extends Component {
     }
 
     decrypt = (payload) => {
-        let iv = Buffer.from(payload.iv, 'hex');
-        let data = Buffer.from(payload.data, 'hex');
+        let object = JSON.parse(payload);
+        let iv = Buffer.from(object.iv, 'hex');
+        let data = Buffer.from(object.data, 'hex');
         let decipher = crypto.createDecipheriv('aes-256-gcm', Buffer.from(config.cryptoData.secret), iv);
         let dec = decipher.update(data);
         dec = Buffer.concat([dec, decipher.final()]);
