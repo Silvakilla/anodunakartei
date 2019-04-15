@@ -61,11 +61,11 @@ export default class AuthController extends Component {
                 token: this.state.user.token
             }
 
-            localStorage.setItem("uu", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(user)).digest(hex));
+            localStorage.setItem("uu", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(user)).digest('hex'));
         }
         
         if(this.state.isAuthenticated !== prevState.isAuthenticated) {
-            localStorage.setItem("a", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(this.state.isAuthenticated)).digest(hex));
+            localStorage.setItem("a", crypto.createHmac('sha256',config.cryptoData.secret).update(JSON.stringify(this.state.isAuthenticated)).digest('hex'));
         }
     }
 
