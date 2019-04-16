@@ -10,6 +10,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Icon from "@material-ui/core/Icon";
 
+import { AuthConsumer } from '../authController/authController';
+
 function ListItemLink(props) {
     return <ListItem button component={'a'} {...props}/>
 }
@@ -38,32 +40,44 @@ export default class SideMenu extends Component {
                     tabIndex={0}
                     role={'button'}
                     onClick={() => {this.toggleDrawer(false)}}
-                    onKeyDown={() => {this.toggleDrawer(false)}}
-                >
-                    <List
-                        subheader={<ListSubheader component="div">Hauptmenü</ListSubheader>}
-                    >
-                        <ListItemLink button href={'/'}>
-                            <Icon>home</Icon>
-                            <ListItemText primary={'Start'}/>
-                        </ListItemLink>
-                        <ListItemLink button href={'/records'}>
-                            <Icon>local_hospital</Icon>
-                            <ListItemText primary={'Krankenakten'}/>
-                        </ListItemLink>
-                        <ListItemLink button href={'/register'}>
-                            <Icon>person</Icon>
-                            <ListItemText primary={'Registrieren'}/>
-                        </ListItemLink>
-                        <ListItemLink button href={'/login'}>
-                            <Icon>redo</Icon>
-                            <ListItemText primary={'Login'}/>
-                        </ListItemLink>
-                        <ListItemLink button href={'/'}>
-                            <Icon>undo</Icon>
-                            <ListItemText primary={'Logout'}/>
-                        </ListItemLink>
-                    </List>
+                    onKeyDown={() => {this.toggleDrawer(false)}}>
+                    <AuthConsumer>
+                        {({isAuthenticated, handleLogout}) => (
+                            <div>
+                            {isAuthenticated ? (
+                                <List subheader={<ListSubheader component="div">Hauptmenü</ListSubheader>}>
+                                    <ListItemLink button href={'/'}>
+                                        <Icon>home</Icon>
+                                        <ListItemText primary={'Start'}/>
+                                    </ListItemLink>
+                                    <ListItemLink button href={'/records'}>
+                                        <Icon>local_hospital</Icon>
+                                        <ListItemText primary={'Krankenakten'}/>
+                                    </ListItemLink>
+                                    <ListItemLink button href={'/'} onClick={handleLogout}>
+                                        <Icon>undo</Icon>
+                                        <ListItemText primary={'Logout'}/>
+                                    </ListItemLink>
+                                </List>
+                            ) : (
+                                <List subheader={<ListSubheader component="div">Hauptmenü</ListSubheader>}>
+                                    <ListItemLink button href={'/'}>
+                                        <Icon>home</Icon>
+                                        <ListItemText primary={'Start'}/>
+                                    </ListItemLink>
+                                    <ListItemLink button href={'/register'}>
+                                        <Icon>person</Icon>
+                                        <ListItemText primary={'Registrieren'}/>
+                                    </ListItemLink>
+                                    <ListItemLink button href={'/login'}>
+                                        <Icon>redo</Icon>
+                                        <ListItemText primary={'Login'}/>
+                                    </ListItemLink>
+                                </List>
+                            )}
+                            </div>
+                        )}
+                    </AuthConsumer>
                 </div>
             </Drawer>
         );

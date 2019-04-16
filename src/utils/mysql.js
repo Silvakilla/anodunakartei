@@ -24,8 +24,6 @@ let Query = async (sql) => {
     try {
         const conn = await connection();
 
-        console.log(conn);
-
         if(conn.fatal != true) {
             let result = conn.query(sql);
             conn.release();

@@ -7,12 +7,14 @@ import { GenerateSessionToken } from '../../utils/tokenGenerator';
 import config from '../../../config/config';
 import crypto from 'crypto';
 
-const AuthContext = createContext({});
+const AuthContext = createContext({
+    isAuthenticated: false
+});
 
 export const AuthConsumer = AuthContext.Consumer;
 
 export default class AuthController extends Component {
-    handeLogin = (username, password) => {
+    handleLogin = (username, password) => {
         axios.get('/api/getOnlyUsernamePassword/' + username, { timeout: 2500 })
             .then((result) => {
                 let user = {
@@ -28,6 +30,7 @@ export default class AuthController extends Component {
 
                     this.setAuthentication(true);
                     this.updateUser(userData);
+                    window.location = "/";
                 }
                 else {
                     this.setAuthentication(false);
@@ -36,6 +39,14 @@ export default class AuthController extends Component {
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    handleLogout = () => {
+        localStorage.removeItem('uu');
+        localStorage.removeItem('a');
+        this.setState({user: {}});
+        this.setState({isAuthenticated: false});
+        window.location = "/";
     }
 
     updateUser = (user) => {
@@ -74,15 +85,23 @@ export default class AuthController extends Component {
 
     state = {
         user: {},
-        isAuthenticated: undefined,
+        isAuthenticated: false,
         updateUser: this.updateUser,
         setAuthentication: this.setAuthentication,
-        handleLogin: this.handeLogin
+        handleLogin: this.handleLogin,
+        handleLogout: this.handleLogout
     }
 
     componentWillMount() {
         this.setState({user: this.decrypt(localStorage.getItem('uu'))});
-        this.setState({isAuthenticated: this.decrypt(localStorage.getItem('a'))});
+
+        let isAuthenticated = this.decrypt(localStorage.getItem('a'));
+
+        if(isAuthenticated === undefined) {
+            isAuthenticated = false;
+        }
+
+        this.setState({isAuthenticated: isAuthenticated});
     }
 
     componentDidUpdate(prevProps, prevState) {

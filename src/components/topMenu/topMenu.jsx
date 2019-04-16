@@ -29,16 +29,8 @@ const styles = {
 
 class TopMenu extends Component {
     state = {
-        auth: localStorage.getItem('auth'),
         anchorEl: null,
         sideMenuOpen : false
-    };
-
-    handleLogout = () => {
-        this.setState({auth: 'false'});
-        localStorage.removeItem('uu');
-        localStorage.removeItem('a');
-        this.setState({ anchorEl: null});
     };
 
     handleMenu = (event) => {
@@ -55,7 +47,7 @@ class TopMenu extends Component {
 
     render() {
         const { classes } = this.props;
-        const { auth, anchorEl, sideMenuOpen } = this.state;
+        const { anchorEl, sideMenuOpen } = this.state;
         const open = Boolean(anchorEl);
 
         return (
@@ -69,9 +61,9 @@ class TopMenu extends Component {
                             {this.props.title}
                         </Typography>
                         <AuthConsumer>
-                            {(isAuthenticated) => (
+                            {({isAuthenticated, handleLogout}) => (
                                 <div>
-                                    {isAuthenticated === true ? 
+                                    {isAuthenticated ? (
                                         <div>
                                             <IconButton
                                             aria-owns={open ? 'menu-appbar' : undefined}
@@ -95,14 +87,14 @@ class TopMenu extends Component {
                                                 onClose={this.handleClose}>
                                                 <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                                                 <MenuItem onClick={this.handleClose}>My Account</MenuItem>
-                                                <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                                                <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                             </Menu>
                                         </div>
-                                    : 
+                                    ) : (
                                         <Button variant={'contained'} color={'primary'} href={'/login'}>
                                             <Typography variant={'button'} color={'inherit'} className={'whiteText'}>Login</Typography>
                                         </Button>
-                                    }
+                                    )}
                                 </div>
                             )}
                         </AuthConsumer>
