@@ -54,6 +54,10 @@ export default class SideMenu extends Component {
                                         <Icon>local_hospital</Icon>
                                         <ListItemText primary={'Krankenakten'}/>
                                     </ListItemLink>
+                                    <ListItemLink button href={'/dashboard'}>
+                                        <Icon>dashboard</Icon>
+                                        <ListItemText primary={'Dashboard'}/>
+                                    </ListItemLink>
                                     <ListItemLink button href={'/'} onClick={handleLogout}>
                                         <Icon>undo</Icon>
                                         <ListItemText primary={'Logout'}/>

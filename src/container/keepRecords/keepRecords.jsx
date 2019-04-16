@@ -47,7 +47,7 @@ export default class KeepRecords extends Component {
                 <TopMenu title={cms.injuryRecords}/>
                 <Grid container className={'cardRoot'}>
                     {records != null || !_.isEmpty(records) ? 
-                    <Grid item xs={12}>
+                    <Grid item xs>
                         <Grid container spacing={16} direction={'row'} justify={'center'} alignItems={'center'}>
                             {records.map((mRecord,key) => ( //records evt begrenzen, dass nicht zuviele aufeinmal geladen werden
                                 <Grid item key={key}>
@@ -62,7 +62,7 @@ export default class KeepRecords extends Component {
                         </Grid>
                     </Grid>
                     : 
-                    <Grid item xs={12}>
+                    <Grid item xs>
                         <Grid container spacing={16} direction={'row'} justify={'center'} alignItems={'center'}>
                             <Grid item>
                                 <MessageCard title={cms.noDataTitle} style={'defaultMessageCard'}>
@@ -75,7 +75,6 @@ export default class KeepRecords extends Component {
                     </Grid>
                     }
                 </Grid>
-                
             </div>
         );
     }

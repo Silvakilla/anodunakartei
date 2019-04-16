@@ -12,6 +12,9 @@ import Register from "./container/register/register";
 import AuthProvider from './components/authController/authController';
 import {ProtectedRoute} from './components/protectedRoute/protectedRoute';
 import {UnAuthedRoute} from './components/unAuthedRoute/unAuthedRoute';
+import Dashboard from './container/dashboard/dashboard';
+import Profile from './container/profile/profile';
+import Account from './container/account/account';
 
 render(
     <AuthProvider>
@@ -23,7 +26,10 @@ render(
                     <Route path={'/home'} component={Home}/>
                     <UnAuthedRoute path={'/login'} component={Login}/>
                     <UnAuthedRoute path={'/register'} component={Register}/>
-                    <ProtectedRoute path={'/records'} component={KeepRecords}/>
+                    <UnAuthedRoute path={'/records'} component={KeepRecords}/>
+                    <UnAuthedRoute path={'/dashboard'} component={Dashboard}/>
+                    <UnAuthedRoute path={'/profile'} component={Profile}/>
+                    <UnAuthedRoute path={'/account'} component={Account}/>
                     <Route component={PageNotFound}/>
                 </Switch>
             </BrowserRouter>
