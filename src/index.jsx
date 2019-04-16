@@ -26,10 +26,10 @@ render(
                     <Route path={'/home'} component={Home}/>
                     <UnAuthedRoute path={'/login'} component={Login}/>
                     <UnAuthedRoute path={'/register'} component={Register}/>
-                    <UnAuthedRoute path={'/records'} component={KeepRecords}/>
-                    <UnAuthedRoute path={'/dashboard'} component={Dashboard}/>
-                    <UnAuthedRoute path={'/profile'} component={Profile}/>
-                    <UnAuthedRoute path={'/account'} component={Account}/>
+                    <ProtectedRoute path={'/records'} component={KeepRecords}/>
+                    <ProtectedRoute path={'/dashboard'} component={Dashboard}/>
+                    <ProtectedRoute path={'/profile'} component={Profile}/>
+                    <ProtectedRoute path={'/account'} component={Account}/>
                     <Route component={PageNotFound}/>
                 </Switch>
             </BrowserRouter>
