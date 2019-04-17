@@ -39,25 +39,28 @@ export default class LoginFields extends Component {
         );
 
         return (
-            <MessageCardWithActions title={'Login'} style={'defaultMessageCard'} actions={cardActions}>
-                <TextField
-                    name={'username'}
-                    label={'Username'}
-                    value={user.username}
-                    onChange={this.handleChange}
-                    margin={'normal'}
-                    fullWidth
-                />
-                <TextField
-                    name={'password'}
-                    label={'Passwort'}
-                    value={user.password}
-                    onChange={this.handleChange}
-                    margin={'normal'}
-                    type={'password'}
-                    fullWidth
-                />
-            </MessageCardWithActions>
+            <AuthConsumer>
+                {({handleLogin}) => (
+                <MessageCardWithActions title={'Login'} style={'defaultMessageCard'} actions={cardActions}>
+                    <TextField
+                        name={'username'}
+                        label={'Username'}
+                        value={user.username}
+                        onChange={this.handleChange}
+                        margin={'normal'}
+                        fullWidth/>
+                        <TextField
+                        name={'password'}
+                        label={'Passwort'}
+                        value={user.password}
+                        onChange={this.handleChange}
+                        margin={'normal'}
+                        type={'password'}
+                        onKeyUp={() => {if(event.keyCode === 13) handleLogin(user.username,user.password)}}
+                        fullWidth/>
+                </MessageCardWithActions>
+                )}
+            </AuthConsumer>
         );
     }
 }

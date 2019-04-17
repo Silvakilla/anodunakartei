@@ -30,7 +30,6 @@ export default class AuthController extends Component {
 
                     this.setAuthentication(true);
                     this.updateUser(userData);
-                    window.location = "/";
                 }
                 else {
                     this.setAuthentication(false);
