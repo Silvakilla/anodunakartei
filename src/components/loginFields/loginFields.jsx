@@ -45,14 +45,14 @@ export default class LoginFields extends Component {
                     <TextField
                         name={'username'}
                         label={'Username'}
-                        value={user.username}
+                        value={user.username.trim()}
                         onChange={this.handleChange}
                         margin={'normal'}
                         fullWidth/>
                         <TextField
                         name={'password'}
                         label={'Passwort'}
-                        value={user.password}
+                        value={user.password.trim()}
                         onChange={this.handleChange}
                         margin={'normal'}
                         type={'password'}

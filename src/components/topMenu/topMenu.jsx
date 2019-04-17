@@ -42,7 +42,7 @@ class TopMenu extends Component {
     };
 
     openSideMenu = () => {
-          this.setState({sideMenuOpen: true});
+        this.setState({sideMenuOpen: true});
     };
 
     render() {

@@ -51,38 +51,34 @@ export default class RegisterFields extends Component {
                 <TextField
                     name={'username'}
                     label={'Username'}
-                    value={this.state.user.username}
+                    value={this.state.user.username.trim()}
                     onChange={this.handleChange}
                     margin={'normal'}
-                    fullWidth
-                />
+                    fullWidth/>
                 <TextField
                     name={'password'}
                     label={'Passwort'}
-                    value={this.state.user.password}
+                    value={this.state.user.password.trim()}
                     onChange={this.handleChange}
                     margin={'normal'}
                     type={'text'}
-                    fullWidth
-                />
+                    fullWidth/>
                 <TextField
                     name={'characterName'}
                     label={'Charakter Name'}
-                    value={this.state.user.characterName}
+                    value={this.state.user.characterName.trim()}
                     onChange={this.handleChange}
                     margin={'normal'}
                     type={'text'}
-                    fullWidth
-                />
+                    fullWidth/>
                 <TextField
                     name={'email'}
                     label={'Email'}
-                    value={this.state.user.email}
+                    value={this.state.user.email.trim()}
                     onChange={this.handleChange}
                     margin={'normal'}
                     type={'text'}
-                    fullWidth
-                />
+                    fullWidth/>
             </MessageCardWithActions>
         );
     }
