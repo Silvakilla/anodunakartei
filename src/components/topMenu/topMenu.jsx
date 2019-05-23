@@ -14,6 +14,10 @@ import SideMenu from "../sideMenu/sideMenu";
 
 import { AuthConsumer } from '../authController/authController';
 
+/*
+    TODO: Side Menu und Account Menu spinnen herum, wenn man die direkt nacheinander ausführt
+*/
+
 const styles = {
     root: {
         flexGrow: 1
@@ -45,6 +49,11 @@ class TopMenu extends Component {
         this.setState({sideMenuOpen: true});
     };
 
+    openAccountPage = (username) => {
+        window.location = "/account"
+        localStorage.setItem('username',username)
+    }
+
     render() {
         const { classes } = this.props;
         const { anchorEl, sideMenuOpen } = this.state;
@@ -61,7 +70,7 @@ class TopMenu extends Component {
                             {this.props.title}
                         </Typography>
                         <AuthConsumer>
-                            {({isAuthenticated, handleLogout}) => (
+                            {({isAuthenticated, handleLogout, user}) => (
                                 <div>
                                     {isAuthenticated ? (
                                         <div>
@@ -85,8 +94,7 @@ class TopMenu extends Component {
                                                 }}
                                                 open={open}
                                                 onClose={this.handleClose}>
-                                                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                                <MenuItem onClick={this.handleClose}>My Account</MenuItem>
+                                                <MenuItem onClick={() => {this.openAccountPage(user.username)}}>Mein Account</MenuItem>
                                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                             </Menu>
                                         </div>

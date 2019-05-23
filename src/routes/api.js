@@ -10,31 +10,6 @@ let router = new Router();
  * Rückgaben aus DB-Verschlüsseln
  */
 
-router.get('/connectTest',(req,res) => {
-    mysql.Query('SELECT 1')
-        .then((result) => {
-            if(result === undefined) {
-                return res.status(503);
-            }
-
-            if(result.fatal === true) {
-                return res.status(500).json({
-                    message: 'test not successful',
-                    rows: result
-                });
-            }
-            else {
-                return res.status(200).json({
-                    message: 'test successful',
-                    rows: result
-                });
-            }
-        })
-        .catch((error) => {
-            logger.error(error);
-        });
-});
-
 router.get('/getDetailedRecords', (req,res) => {
     mysql.Query(sqlStrings.detailedRecord.getAllDetailedRecords)
     .then((result) => {
@@ -460,6 +435,30 @@ router.get('/getOnlyUsernamePassword/:username',(req,res) => {
     });
 });
 
+router.get('/getAccountData/:username',(req,res) => {
+    mysql.PreparedQuery(sqlStrings.user.getAccountData,req.params.username)
+    .then((result) => {
+        if(result === undefined) {
+            return res.status(503);
+        }
+
+        if(result.fatal === true) {
+            return res.status(500).json({
+                message: 'query not successful',
+                rows: result
+            });
+        }
+        else {
+            return res.status(200).json({
+                result
+            });
+        }
+    })
+    .catch((error) => {
+        logger.error(error);
+    });
+});
+
 router.post('/addUser',(req,res) => {
     const payload = [req.body.user.username,md5(req.body.user.password),req.body.user.email,req.body.user.characterName]
     mysql.PreparedQuery(sqlStrings.user.addUser,payload)
@@ -486,6 +485,11 @@ router.post('/addUser',(req,res) => {
 
 router.patch('/updateUser/:id',(req,res) => {
     // id, {payload aka req.body}
+});
+
+router.patch('/updateAccountData/:username',(req,res) => {
+    console.log(req);
+    //mysql.PreparedQuery(sqlStrings.user.updateAccountData,username).then().catch();
 });
 
 router.get('/getPermissions',(req,res) => {

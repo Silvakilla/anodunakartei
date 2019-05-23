@@ -28,7 +28,6 @@ render(
                     <UnAuthedRoute path={'/register'} component={Register}/>
                     <ProtectedRoute path={'/records'} component={KeepRecords}/>
                     <ProtectedRoute path={'/dashboard'} component={Dashboard}/>
-                    <ProtectedRoute path={'/profile'} component={Profile}/>
                     <ProtectedRoute path={'/account'} component={Account}/>
                     <Route component={PageNotFound}/>
                 </Switch>

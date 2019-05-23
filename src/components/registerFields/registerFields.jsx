@@ -65,7 +65,7 @@ export default class RegisterFields extends Component {
                     fullWidth/>
                 <TextField
                     name={'characterName'}
-                    label={'Charakter Name'}
+                    label={'Name des Charakter'}
                     value={this.state.user.characterName.trim()}
                     onChange={this.handleChange}
                     margin={'normal'}

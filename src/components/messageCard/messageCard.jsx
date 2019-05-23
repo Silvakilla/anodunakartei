@@ -60,6 +60,12 @@ class MessageCardWithActions extends Component {
     }
 }
 
+MessageCardWithActions.propTypes = {
+    title: PropTypes.string.isRequired,
+    style: PropTypes.string,
+    actions: PropTypes.element
+};
+
 class CustomCard extends Component {
     render() {
         return (
@@ -72,12 +78,6 @@ class CustomCard extends Component {
         );
     }
 }
-
-MessageCardWithActions.propTypes = {
-    title: PropTypes.string.isRequired,
-    style: PropTypes.string,
-    actions: PropTypes.element
-};
 
 export {
     MessageCard,
